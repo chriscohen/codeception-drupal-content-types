@@ -4,7 +4,7 @@
  * Static class used to persist settings for individual suites.
  */
 
-namespace Codeception\Module\ContentTypes;
+namespace Codeception\Module\Drupal\ContentTypeRegistry;
 
 /**
  * Class SuiteSettings

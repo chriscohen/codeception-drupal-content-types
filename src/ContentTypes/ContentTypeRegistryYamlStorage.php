@@ -4,11 +4,11 @@
  * Yaml implementation of ContentTypeRegistryStorageInterface.
  */
 
-namespace Codeception\Module\ContentTypes;
+namespace Codeception\Module\Drupal\ContentTypeRegistry;
 
+use Codeception\Module\Drupal\ContentTypeRegistry\Fields\Field;
 use Symfony\Component\Yaml\Yaml;
 use Codeception\Exception\Configuration as ConfigurationException;
-use Codeception\Module\ContentTypes\Fields\Field;
 
 /**
  * Retrieve a list of content types for this site from yaml configuration.
@@ -18,7 +18,10 @@ use Codeception\Module\ContentTypes\Fields\Field;
 class ContentTypeRegistryYamlStorage implements ContentTypeRegistryStorageInterface
 {
     /**
-     * The parsed Yaml configuration, stored to avoid having to process it multiple times from loading a file.
+     * The parsed Yaml configuration.
+     *
+     * This is stored to avoid having to process it
+     * multiple times from loading a file.
      *
      * @var array
      */

@@ -4,7 +4,7 @@
  * Represents a field on a Drupal entity, such as a node or taxonomy term.
  */
 
-namespace Codeception\Module\ContentTypes\Fields;
+namespace Codeception\Module\Drupal\ContentTypeRegistry\Fields;
 
 use Codeception\Exception\Configuration as ConfigurationException;
 
@@ -268,6 +268,12 @@ class Field
      *   An unkeyed array of field names.
      * @param Field[] $fields
      *   Global fields as derived from ContentTypeRegistryStorageInterface->loadGlobalFields().
+     *
+     * @return Field[]
+     *   Array of global fields.
+     *
+     * @throws ConfigurationException
+     *   If field was not set as global.
      */
     public static function parseGlobalFields($globals, $fields)
     {
