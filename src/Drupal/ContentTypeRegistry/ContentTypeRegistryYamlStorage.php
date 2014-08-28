@@ -18,6 +18,23 @@ use Codeception\Module\Drupal\ContentTypeRegistry\Fields\Field;
 class ContentTypeRegistryYamlStorage implements ContentTypeRegistryStorageInterface
 {
     /**
+     * An array of ContentType objects.
+     *
+     * @var ContentType[]
+     */
+    protected static $contentTypes = array();
+
+    /**
+     * An array of field definitions that apply to multiple content types.
+     *
+     * This is for use when the field is exactly the same on multiple types, to avoid defining it a load of times for
+     * no reason.
+     *
+     * @var Field[]
+     */
+    protected static $globalFields = array();
+
+    /**
      * The parsed Yaml configuration, stored to avoid having to process it multiple times from loading a file.
      *
      * @var array

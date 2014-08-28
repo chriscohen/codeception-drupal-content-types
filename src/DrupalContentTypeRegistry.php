@@ -19,35 +19,19 @@ use Codeception\Module\Drupal\ContentTypeRegistry\ContentTypeRegistryStorageInte
 class DrupalContentTypeRegistry extends Module
 {
     /**
-     * An array of ContentType objects.
-     *
-     * @var ContentType[]
-     */
-    //protected static $contentTypes = array();
-
-    /**
-     * An array of field definitions that apply to multiple content types.
-     *
-     * This is for use when the field is exactly the same on multiple types, to avoid defining it a load of times for
-     * no reason.
-     *
-     * @var Field[]
-     */
-    //protected static $globalFields = array();
-
-    /**
      * The storage class used by this content type registry.
      *
      * @var ContentTypeRegistryStorageInterface
      */
-    //protected static $storage;
+    protected $storage = null;
 
     /**
-     * Keep track of whether we have loaded the content types from our storage yet.
-     *
-     * @var bool
+     * Hook that runs before each suite. Initialize content types here.
      */
-    //protected static $initialized = false;
+    public function _beforeSuite($settings = array())
+    {
+        $this->storage = new ContentTypeRegistryYamlStorage();
+    }
 
     /**
      * Initialize the content types from the storage device specified.
@@ -57,15 +41,7 @@ class DrupalContentTypeRegistry extends Module
      */
     public function initializeContentTypes(ContentTypeRegistryStorageInterface $storage)
     {
-        // Don't initialize if we have already done so.
-        if (static::$initialized) {
-            return;
-        }
-
-        static::$storage = $storage;
-        static::$globalFields = $storage->loadGlobalFields();
-        static::$contentTypes = $storage->loadContentTypes();
-        static::$initialized = true;
+        $this->$storage = $storage;
     }
 
     /**
@@ -75,7 +51,7 @@ class DrupalContentTypeRegistry extends Module
      */
     public function isContentTypeRegistryInitialized()
     {
-        return static::$initialized;
+        return !is_null($this->storage);
     }
 
     /**
