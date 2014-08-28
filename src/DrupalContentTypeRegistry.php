@@ -23,7 +23,7 @@ class DrupalContentTypeRegistry extends Module
      *
      * @var ContentType[]
      */
-    protected static $contentTypes = array();
+    //protected static $contentTypes = array();
 
     /**
      * An array of field definitions that apply to multiple content types.
@@ -33,21 +33,21 @@ class DrupalContentTypeRegistry extends Module
      *
      * @var Field[]
      */
-    protected static $globalFields = array();
+    //protected static $globalFields = array();
 
     /**
      * The storage class used by this content type registry.
      *
      * @var ContentTypeRegistryStorageInterface
      */
-    protected static $storage;
+    //protected static $storage;
 
     /**
      * Keep track of whether we have loaded the content types from our storage yet.
      *
      * @var bool
      */
-    protected static $initialized = false;
+    //protected static $initialized = false;
 
     /**
      * Initialize the content types from the storage device specified.
