@@ -9,13 +9,14 @@ namespace Codeception\Module;
 use Codeception\Module\Drupal\ContentTypeRegistry\ContentType;
 use Codeception\Module\Drupal\ContentTypeRegistry\Fields\Field;
 use Codeception\Module\Drupal\ContentTypeRegistry\ContentTypeRegistryStorageInterface;
+use Codeception\Module;
 
 /**
  * Class DrupalContentTypeRegistry
  *
  * @package Codeception\Drupal
  */
-class DrupalContentTypeRegistry
+class DrupalContentTypeRegistry extends Module
 {
     /**
      * An array of ContentType objects.
