@@ -10,6 +10,7 @@ use Codeception\Module;
 use Codeception\Module\Drupal\ContentTypeRegistry\ContentType;
 use Codeception\Module\Drupal\ContentTypeRegistry\Fields\Field;
 use Codeception\Module\Drupal\ContentTypeRegistry\ContentTypeRegistryStorageInterface;
+use Codeception\Module\Drupal\ContentTypeRegistry\ContentTypeRegistryYamlStorage;
 
 /**
  * Class DrupalContentTypeRegistry
