@@ -66,7 +66,7 @@ class DrupalContentTypeRegistry extends Module
      */
     public function getContentType($type)
     {
-        return isset($this->contentTypes[$type]) ? $this->contentTypes[$type] : null;
+        return $this->storage->getContentType($type);
     }
 
     /**
@@ -77,7 +77,7 @@ class DrupalContentTypeRegistry extends Module
      */
     public function getContentTypes()
     {
-        return $this->contentTypes;
+        return $this->storage->getContentTypes();
     }
 
     /**
@@ -91,7 +91,7 @@ class DrupalContentTypeRegistry extends Module
      */
     public function getGlobalField($field)
     {
-        return isset($this->globalFields[$field]) ? $this->globalFields[$field] : null;
+        return $this->storage->getGlobalField($field);
     }
 
     /**
@@ -102,6 +102,6 @@ class DrupalContentTypeRegistry extends Module
      */
     public function getGlobalFields()
     {
-        return $this->globalFields;
+        return $this->storage->getGlobalFields();
     }
 }

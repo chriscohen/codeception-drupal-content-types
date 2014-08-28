@@ -43,4 +43,42 @@ interface ContentTypeRegistryStorageInterface
      * @return void
      */
     public function parseDataSource();
+
+    /**
+     * Get a content type by machine name.
+     *
+     * @param string $type
+     *   The machine name of the content type to be retrieved.
+     *
+     * @return ContentType|null
+     *   The ContentType specified, or null if not found.
+     */
+    public function getContentType($type);
+
+    /**
+     * Get all content types.
+     *
+     * @return ContentType[]
+     *   An array of all the ContentType objects.
+     */
+    public function getContentTypes();
+
+    /**
+     * Get a global field by machine name.
+     *
+     * @param string $field
+     *   The machine name of the global field to be retrieved.
+     *
+     * @return Field|null
+     *   The Field specified, or null if not found.
+     */
+    public function getGlobalField($field);
+
+    /**
+     * Get all global fields.
+     *
+     * @return Field[]
+     *   An array of all the Field objects.
+     */
+    public function getGlobalFields();
 }

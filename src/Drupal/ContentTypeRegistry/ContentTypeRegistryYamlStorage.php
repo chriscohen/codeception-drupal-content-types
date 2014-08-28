@@ -140,4 +140,36 @@ class ContentTypeRegistryYamlStorage implements ContentTypeRegistryStorageInterf
 
         return $contentTypes;
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getContentType($type)
+    {
+        return isset(static::$contentTypes[$type]) ? static::$contentTypes[$type] : null;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getContentTypes()
+    {
+        return static::$contentTypes;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getGlobalField($field)
+    {
+        return isset(static::$globalFields[$field]) ? static::$globalFields[$field] : null;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getGlobalFields()
+    {
+        return static::$globalFields;
+    }
 }
