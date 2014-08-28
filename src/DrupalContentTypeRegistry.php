@@ -23,7 +23,7 @@ class DrupalContentTypeRegistry extends Module
      *
      * @var ContentType[]
      */
-    protected $contentTypes = array();
+    protected static $contentTypes = array();
 
     /**
      * An array of field definitions that apply to multiple content types.
@@ -33,7 +33,21 @@ class DrupalContentTypeRegistry extends Module
      *
      * @var Field[]
      */
-    protected $globalFields = array();
+    protected static $globalFields = array();
+
+    /**
+     * The storage class used by this content type registry.
+     *
+     * @var ContentTypeRegistryStorageInterface
+     */
+    protected static $storage;
+
+    /**
+     * Keep track of whether we have loaded the content types from our storage yet.
+     *
+     * @var bool
+     */
+    protected static $initialized = false;
 
     /**
      * Initialize the content types from the storage device specified.
@@ -41,10 +55,27 @@ class DrupalContentTypeRegistry extends Module
      * @param ContentTypeRegistryStorageInterface $storage
      *   The storage interface.
      */
-    public function initialize(ContentTypeRegistryStorageInterface $storage)
+    public function initializeContentTypes(ContentTypeRegistryStorageInterface $storage)
     {
-        $this->storage = $storage;
-        $this->contentTypes = $storage->loadContentTypes();
+        // Don't initialize if we have already done so.
+        if (static::$initialized) {
+            return;
+        }
+
+        static::$storage = $storage;
+        static::$globalFields = $storage->loadGlobalFields();
+        static::$contentTypes = $storage->loadContentTypes();
+        static::$initialized = true;
+    }
+
+    /**
+     * Determine whether the content type registry has been initialized.
+     *
+     * @return bool
+     */
+    public function isContentTypeRegistryInitialized()
+    {
+        return static::$initialized;
     }
 
     /**
