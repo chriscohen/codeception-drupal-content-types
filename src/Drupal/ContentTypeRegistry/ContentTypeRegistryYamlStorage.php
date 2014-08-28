@@ -42,6 +42,17 @@ class ContentTypeRegistryYamlStorage implements ContentTypeRegistryStorageInterf
     protected $config = array();
 
     /**
+     * Constructor.
+     *
+     * Here we initialize the internal static storage from the yaml.
+     */
+    public function __construct()
+    {
+        static::$globalFields = $this->loadGlobalFields();
+        static::$contentTypes = $this->loadContentTypes();
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function isInitialised()
