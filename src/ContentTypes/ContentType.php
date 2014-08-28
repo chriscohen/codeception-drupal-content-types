@@ -4,7 +4,9 @@
  * Base class for content types.
  */
 
-namespace Codeception\Module\ContentTypes;
+namespace Codeception\Module\Drupal\ContentTypeRegistry;
+
+use Codeception\Module\Drupal\ContentTypeRegistry\Fields\Field;
 
 /**
  * Class ContentType

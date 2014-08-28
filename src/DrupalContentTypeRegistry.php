@@ -11,11 +11,11 @@ use Codeception\Module\ContentTypes\Fields\Field;
 use Codeception\Module\ContentTypes\ContentTypeRegistryStorageInterface;
 
 /**
- * Class ContentTypeRegistry
+ * Class DrupalContentTypeRegistry
  *
  * @package Codeception\Drupal
  */
-class ContentTypeRegistry
+class DrupalContentTypeRegistry
 {
     /**
      * An array of ContentType objects.

@@ -4,7 +4,7 @@
  * Represents a field on a Drupal entity, such as a node or taxonomy term.
  */
 
-namespace Codeception\Module\ContentTypes\Fields;
+namespace Codeception\Module\Drupal\ContentTypeRegistry\Fields;
 
 use Codeception\Exception\Configuration as ConfigurationException;
 

@@ -4,9 +4,9 @@
  * Storage interface for ContentTypeRegistry which allows content type data to be pulled from storage.
  */
 
-namespace Codeception\Module\ContentTypes;
+namespace Codeception\Module\Drupal\ContentTypeRegistry;
 
-use Codeception\Module\ContentTypes\Fields\Field;
+use Codeception\Module\Drupal\ContentTypeRegistry\Fields\Field;
 
 /**
  * Interface for retrieving Drupal content types from storage.
