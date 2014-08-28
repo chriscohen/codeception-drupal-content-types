@@ -48,8 +48,12 @@ class ContentTypeRegistryYamlStorage implements ContentTypeRegistryStorageInterf
      */
     public function __construct()
     {
-        static::$globalFields = $this->loadGlobalFields();
-        static::$contentTypes = $this->loadContentTypes();
+        if (empty(static::$globalFields)) {
+            static::$globalFields = $this->loadGlobalFields();
+        }
+        if (empty($static::$contentTypes)) {
+            static::$contentTypes = $this->loadContentTypes();
+        }
     }
 
     /**
