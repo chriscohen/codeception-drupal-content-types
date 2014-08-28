@@ -10,8 +10,8 @@
   "autoload": {
     "psr-4": {
       "Codeception\\Module\\": "src",
-      "Codeception\\Module\\ContentTypes\\": "src/ContentTypes",
-      "Codeception\\Module\\ContentTypes\\Fields\\": "src/ContentTypes/Fields"
+      "Codeception\\Module\\Drupal\\ContentTypeRegistry\\": "src/Drupal/ContentTypeRegistry",
+      "Codeception\\Module\\Drupal\\ContentTypeRegistry\\Fields\\": "src/ContentTypeRegistry/Fields"
     }
   }
 }
