@@ -15,7 +15,7 @@ use Codeception\Module\Drupal\ContentTypeRegistry\ContentTypeRegistryYamlStorage
 /**
  * Class DrupalContentTypeRegistry
  *
- * @package Codeception\Drupal
+ * @package Codeception\Module
  */
 class DrupalContentTypeRegistry extends Module
 {
@@ -103,5 +103,24 @@ class DrupalContentTypeRegistry extends Module
     public function getGlobalFields()
     {
         return $this->storage->getGlobalFields();
+    }
+
+    /**
+     * Determines if a content type is a valid type.
+     *
+     * @param string $type
+     *   The machine-readable content type to check.
+     *
+     * @return bool
+     *   TRUE if the content type is valid. FALSE otherwise.
+     */
+    public function isValidContentType($type)
+    {
+        // Deal with a situation where Codeception passes in a test object.
+        if (is_object($type)) {
+            return true;
+        }
+
+        return !is_null($this->storage->getContentType($type));
     }
 }
