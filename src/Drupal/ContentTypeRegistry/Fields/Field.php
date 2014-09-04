@@ -57,6 +57,14 @@ class Field
      */
     protected $required;
 
+    /**
+     * Test data for this field. Can be a single value, or an array of values. If an array is used, one will be chosen
+     * at random or the user can specify which one to use.
+     *
+     * @var mixed
+     */
+    protected $testData;
+
     public static $fieldsWithNoWidget = array(
         'Fieldset containing scheduling settings',
         'Meta tag module form elements.',
@@ -211,6 +219,43 @@ class Field
     }
 
     /**
+     * Get the test data for this field.
+     *
+     * @param int|string $index
+     *   If the test data is in array form (i.e. multiple bits of test data), return the specified index of the array.
+     *   If this is omitted, a random element will be returned. If the test data is not in array form, then it will be
+     *   returned as-is.
+     * @return mixed
+     *   The test data, either randomly determined, or as selected using the $index parameter.
+     */
+    public function getTestData($index = -1)
+    {
+        // If our test data is an array, we can either get a random element, or get a specific element. If it's not an
+        // array, we have no choice but to return as-is.
+        if (is_array($this->testData)) {
+            // If an index has been requested and that index exists in the array, return that specific item. Otherwise,
+            // just return a random array element.
+            if ($index > -1 && isset($this->testData[$index])) {
+                return $this->testData[$index];
+            } else {
+                return array_rand($this->testData);
+            }
+        } else {
+            return $this->testData;
+        }
+    }
+
+    /**
+     * Sets the test data for this field.
+     *
+     * @param mixed $testData
+     */
+    public function setTestData($testData)
+    {
+        $this->testData = $testData;
+    }
+
+    /**
      * Does this field have a widget name on the admin "manage fields" page in the "widget" column?
      *
      * @return bool
@@ -253,6 +298,9 @@ class Field
         }
         if (isset($yaml['required']) && $yaml['required'] != 'false') {
             $field->setRequired(true);
+        }
+        if (isset($yaml['testData'])) {
+            $field->setTestData($yaml['testData']);
         }
 
         return $field;
