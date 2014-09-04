@@ -7,6 +7,7 @@
 namespace Codeception\Module\Drupal\ContentTypeRegistry\Fields;
 
 use Codeception\Exception\Configuration as ConfigurationException;
+use Codeception\Util\WebInterface;
 
 /**
  * Class Field
@@ -334,5 +335,24 @@ class Field
         }
 
         return $output;
+    }
+
+    /**
+     * Fill this field on a web form.
+     *
+     * @param WebInterface $I
+     *   The WebInterface (like the actor) being used within the active test scenario.
+     * @param mixed $value
+     *   The value to put into the field. If left out, will use a random value obtained from getTestData().
+     */
+    public function fillField(WebInterface $I, $value = null)
+    {
+        // Explicitly check for null here. empty() would not cut it because it would trigger if you wanted to fill the
+        // field with a 0 digit or similar.
+        if (is_null($value)) {
+            $value = $this->getTestData();
+        }
+
+        $I->fillField($this->getSelector(), $value);
     }
 }
