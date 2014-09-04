@@ -66,6 +66,14 @@ class Field
      */
     protected $testData;
 
+    /**
+     * List of fields with no widget.
+     *
+     * If a field type is listed here, fields of this type on the 'manage
+     * fields' page will be able to get away with having a blank widget.
+     *
+     * @var array
+     */
     public static $fieldsWithNoWidget = array(
         'Fieldset containing scheduling settings',
         'Meta tag module form elements.',
