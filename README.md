@@ -59,13 +59,25 @@ ContentTypes:
             globals:
                 - title
                 - body
-            field_images:
-                machineName:    field_images
-                label:          Images
+            field_image:
+                machineName:    field_image
+                label:          Image
                 type:           Image
-                selector:       "#edit-field-images"
+                selector:       "#edit-field-image"
                 widget:         Media file selector
                 required:       true
+                testData:       "image1.png"
+            field_icon:
+                machineName:    field_icon
+                label:          Icon
+                type:           Text
+                selector:       "#edit-field-icon"
+                widget:         Text field
+                testData:
+                    - smiley
+                    - grumpy
+                    - happy
+                    - wacky
 ```
 
 ### GlobalFields
@@ -100,6 +112,9 @@ of the actual naming, so you could give the content type any key you like).
       sensitive. Some fields don't have widgets (such as title) so just leave it out. There is a list of field types
       that are exempted from having a widget, so the ContentTypeRegistry will be aware of this.
     - **required** can be set to "true" if the field is required. If it's not, just leave this out altogether.
+    - **testData** should contain the dummy data used to test this field. Each field can be instructed to fill itself
+      with test data and this is the data that will be used. If an array of values if provided, one can be chosen at
+      random by the Field class.
 
 ## Suite-specific contentTypes.yml
 
