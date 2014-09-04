@@ -11,8 +11,8 @@
     "psr-4": {
       "Codeception\\Module\\": "src",
       "Codeception\\Module\\Drupal\\ContentTypeRegistry\\": "src/Drupal/ContentTypeRegistry",
-      "Codeception\\Module\\Drupal\\ContentTypeRegistry\\Fields\\": "src/ContentTypeRegistry/Fields",
-      "Codeception\\Module\\Drupal\\ContentTypeRegistry\\Widgets\\": "src/ContentTypeRegistry/Widgets"
+      "Codeception\\Module\\Drupal\\ContentTypeRegistry\\Fields\\": "src/Drupal/ContentTypeRegistry/Fields",
+      "Codeception\\Module\\Drupal\\ContentTypeRegistry\\Widgets\\": "src/Drupal/ContentTypeRegistry/Widgets"
     }
   }
 }
