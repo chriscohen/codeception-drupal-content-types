@@ -7,6 +7,7 @@
 namespace Codeception\Module\Drupal\ContentTypeRegistry;
 
 use Codeception\Module\Drupal\ContentTypeRegistry\Fields\Field;
+use Codeception\Util\WebInterface;
 
 /**
  * Class ContentType
@@ -166,5 +167,28 @@ class ContentType
         }
 
         return $contentType;
+    }
+
+    /**
+     * Fill all the fields on this content type.
+     *
+     * @param WebInterface $I
+     *   The WebInterface (like the actor) being used within the active test scenario.
+     * @param array $testData
+     *   A keyed array of test data where the keys are the machine names of the fields and the values are the values
+     *   for the test data.
+     */
+    public function fillFields(WebInterface $I, $testData = array())
+    {
+        // Go through each field and set its value.
+        foreach ($this->getFields() as $field) {
+            // If we have been given a value for this field, use it. Otherwise, use the test data provided within the
+            // Field instance.
+            if (isset($testData[$field->getMachine()])) {
+                $field->fillField($I, $testData[$field->getMachine()]);
+            } else {
+                $field->fillField($I);
+            }
+        }
     }
 }
