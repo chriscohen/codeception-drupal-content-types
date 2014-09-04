@@ -253,6 +253,9 @@ class Field
      */
     public function setTestData($testData)
     {
+        // Process the value if it's a "special" value.
+        $testData = $this->parseSpecialValue($testData);
+
         $this->testData = $testData;
     }
 
@@ -352,9 +355,6 @@ class Field
         if (is_null($value)) {
             $value = $this->getTestData();
         }
-
-        // Process the value if it's a "special" value.
-        $value = $this->parseSpecialValue($value);
 
         $I->fillField($this->getSelector(), $value);
     }
