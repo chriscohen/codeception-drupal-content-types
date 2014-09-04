@@ -353,6 +353,62 @@ class Field
             $value = $this->getTestData();
         }
 
+        // Process the value if it's a "special" value.
+        $value = $this->parseSpecialValue($value);
+
         $I->fillField($this->getSelector(), $value);
+    }
+
+    /**
+     * Generate a bit of random text.
+     *
+     * @param int $length
+     *   The number of characters to include in the text.
+     *
+     * @return string
+     *   A string of the specified length.
+     */
+    public static function randomText($length = 8)
+    {
+        $chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+        $output = '';
+        $charLen = strlen($chars);
+
+        for ($i = 0; $i < $length; $i++) {
+            $output .= substr($chars, rand(0, $charLen - 1), 1);
+        }
+
+        return $output;
+    }
+
+    /**
+     * Work out if a particular field value is considered "special" (and further processing is required).
+     *
+     * If it's special, process it into its proper value.
+     *
+     * @param mixed $value
+     *   The special command used to populate this field's value.
+     *
+     * @return mixed
+     *   The processed value. For example, if random text was requested, returns random text instead of the value that
+     *   requests random text.
+     */
+    public function parseSpecialValue($value)
+    {
+        // If we're not dealing with a special value we can just bail out immediately at this point.
+        if (substr($value, 0, 9) != 'special::') {
+            return $value;
+        }
+
+        $special = substr($value, 9);
+
+        switch ($special) {
+            case 'randomText':
+            default:
+                $value = $this::randomText();
+                break;
+        }
+
+        return $value;
     }
 }
