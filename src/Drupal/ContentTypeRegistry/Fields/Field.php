@@ -8,6 +8,7 @@ namespace Codeception\Module\Drupal\ContentTypeRegistry\Fields;
 
 use Codeception\Exception\Configuration as ConfigurationException;
 use Codeception\Util\WebInterface;
+use ReflectionClass;
 
 /**
  * Class Field
@@ -83,6 +84,71 @@ class Field
         'Poll module settings',
         'Redirect module form elements',
         'XML sitemap module element',
+    );
+
+    /**
+     * Default Field sub-classes to use for each field and widget type.
+     *
+     * For fields that don't have a class assigned in the storage, they will be instantiated using a class determined
+     * by their type and their widget as detailed in this array.
+     *
+     * @var array
+     */
+    public static $fieldClasses = array(
+        'Boolean' => array(
+            'Single on/off checkbox' => 'SingleCheckboxField',
+        ),
+        'Date' => array(
+            'Pop-up calendar' => 'PopUpCalendarField',
+        ),
+        'Email' => array(
+            'Text field' => 'Text',
+        ),
+        'Entity Reference' => array(
+            'Autocomplete' => 'Field',
+            'Select list' => 'SelectListField',
+        ),
+        'File' => array(
+            'File' => 'FileField',
+        ),
+        'Image' => array(
+            'Media file selector' => 'MediaField',
+        ),
+        'Link' => array(
+            'Link' => 'LinkField',
+        ),
+        'List (integer)' => array(
+            'Check boxes/radio buttons' => 'CheckBoxesField',
+        ),
+        'List (text)' => array(
+            'Select list' => 'SelectListField',
+        ),
+        'Long text' => array(
+            'Text area (multiple rows)' => 'TextAreaField',
+        ),
+        'Long text and summary' => array(
+            'Text area with a summary' => 'WywiwygField',
+        ),
+        'Node module element' => array(
+            'Field',
+        ),
+        'Poll module settings' => array(
+            'PollField',
+        ),
+        'Postal address' => array(
+            'Dynamic address form' => 'AddressField',
+        ),
+        'Scheduler' => array(
+            'SchedulerField',
+        ),
+        'Term reference' => array(
+            'Autocomplete'  => 'Field',
+            'Check boxes/radio buttons' => 'CheckBoxesField',
+            'Select list'   => 'SelectListField',
+        ),
+        'Text' => array(
+            'Text field' => 'Field',
+        ),
     );
 
     /**
@@ -290,7 +356,29 @@ class Field
      */
     public static function parseYaml($yaml)
     {
-        $field = new Field();
+        $classPrefix = 'Codeception\\Module\\Drupal\\ContentTypeRegistry\\Fields\\';
+        $class = $classPrefix . 'Field';
+
+        if (isset($yaml['class'])) {
+            // This field has explicitly set which class it wants to use.
+            $class = $yaml['class'];
+        } elseif (isset($yaml['type'])) {
+            // Attempt to derive the class using the field's type.
+            if (in_array($yaml['type'], static::$fieldsWithNoWidget)) {
+                // The field has no widget, so just get the class without the need to consider the widget.
+                if (isset(static::$fieldClasses[$yaml['type']])) {
+                    $class = $classPrefix . static::$fieldClasses[$yaml['type']];
+                }
+            } elseif (isset($yaml['widget'])) {
+                // The field has a class and a widget, so consider both when selecting a class.
+                if (isset(static::$fieldClasses[$yaml['type']][$yaml['widget']])) {
+                    $class = $classPrefix . static::$fieldClasses[$yaml['type']][$yaml['widget']];
+                }
+            }
+        }
+
+        /** @var Field $field */
+        $field = new ReflectionClass($class);
 
         // If we got here, we're not dealing with a global field, so process it normally.
         if (isset($yaml['machineName'])) {
