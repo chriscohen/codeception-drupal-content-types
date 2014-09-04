@@ -13,7 +13,7 @@ namespace Codeception\Module\Drupal\ContentTypeRegistry\Widgets;
  *
  * @package Codeception\Module\Drupal\ContentTypeRegistry\Widgets
  */
-class WsyiwygField extends Widget
+class WsyiwygWidget extends Widget
 {
 
 }
