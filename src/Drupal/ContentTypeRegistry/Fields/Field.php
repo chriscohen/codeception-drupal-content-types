@@ -118,7 +118,7 @@ class Field
             'Link' => 'LinkField',
         ),
         'List (integer)' => array(
-            'Check boxes/radio buttons' => 'CheckBoxesField',
+            'Check boxes/radio buttons' => 'CheckboxesField',
         ),
         'List (text)' => array(
             'Select list' => 'SelectListField',
@@ -143,7 +143,7 @@ class Field
         ),
         'Term reference' => array(
             'Autocomplete'  => 'Field',
-            'Check boxes/radio buttons' => 'CheckBoxesField',
+            'Check boxes/radio buttons' => 'CheckboxesField',
             'Select list'   => 'SelectListField',
         ),
         'Text' => array(
