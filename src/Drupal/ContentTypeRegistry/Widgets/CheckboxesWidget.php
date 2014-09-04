@@ -1,19 +1,19 @@
 <?php
 /**
  * @file
- * Represents a "set of checkboxes" field on a Drupal entity.
+ * Represents a "set of checkboxes" widget on a Drupal entity form.
  */
 
-namespace Codeception\Module\Drupal\ContentTypeRegistry\Fields;
+namespace Codeception\Module\Drupal\ContentTypeRegistry\Widgets;
 
 use Codeception\Util\WebInterface;
 
 /**
- * Class CheckboxesField
+ * Class CheckboxesWidget
  *
- * @package Codeception\Module\Drupal\ContentTypeRegistry\Fields
+ * @package Codeception\Module\Drupal\ContentTypeRegistry\Widgets
  */
-class CheckboxesField extends Field
+class CheckboxesField extends Widget
 {
     /**
      * {@inheritdoc}
@@ -27,7 +27,7 @@ class CheckboxesField extends Field
      * @todo this will currently ONLY work with checkboxes and not radio buttons, but there is only one widget that
      * covers both checkboxes and radio buttons.
      */
-    public function fillField(WebInterface $I, $value = null)
+    public function fill(WebInterface $I, $value = null)
     {
         foreach ($value as $selector => $state) {
             $fullSelector = $this->getSelector() . '-' . $selector;

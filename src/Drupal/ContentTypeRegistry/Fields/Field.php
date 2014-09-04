@@ -9,6 +9,7 @@ namespace Codeception\Module\Drupal\ContentTypeRegistry\Fields;
 use Codeception\Exception\Configuration as ConfigurationException;
 use Codeception\Util\WebInterface;
 use ReflectionClass;
+use Codeception\Module\Drupal\ContentTypeRegistry\Widgets\Widget;
 
 /**
  * Class Field
@@ -39,16 +40,9 @@ class Field
     protected $type;
 
     /**
-     * XPath selector used to identify this field on the node edit page.
+     * The widget in use on this field to input data on web forms.
      *
-     * @var string
-     */
-    protected $selector;
-
-    /**
-     * The name of the widget in use on this field as displayed on admin/structure/types/manage/NODETYPE/fields
-     *
-     * @var string
+     * @var Widget
      */
     protected $widget;
 
@@ -84,71 +78,6 @@ class Field
         'Poll module settings',
         'Redirect module form elements',
         'XML sitemap module element',
-    );
-
-    /**
-     * Default Field sub-classes to use for each field and widget type.
-     *
-     * For fields that don't have a class assigned in the storage, they will be instantiated using a class determined
-     * by their type and their widget as detailed in this array.
-     *
-     * @var array
-     */
-    public static $fieldClasses = array(
-        'Boolean' => array(
-            'Single on/off checkbox' => 'SingleCheckboxField',
-        ),
-        'Date' => array(
-            'Pop-up calendar' => 'PopUpCalendarField',
-        ),
-        'Email' => array(
-            'Text field' => 'Field',
-        ),
-        'Entity Reference' => array(
-            'Autocomplete' => 'Field',
-            'Select list' => 'SelectListField',
-        ),
-        'File' => array(
-            'File' => 'FileField',
-        ),
-        'Image' => array(
-            'Media file selector' => 'MediaField',
-        ),
-        'Link' => array(
-            'Link' => 'LinkField',
-        ),
-        'List (integer)' => array(
-            'Check boxes/radio buttons' => 'CheckboxesField',
-        ),
-        'List (text)' => array(
-            'Select list' => 'SelectListField',
-        ),
-        'Long text' => array(
-            'Text area (multiple rows)' => 'TextAreaField',
-        ),
-        'Long text and summary' => array(
-            'Text area with a summary' => 'WywiwygField',
-        ),
-        'Node module element' => array(
-            'Field',
-        ),
-        'Poll module settings' => array(
-            'PollField',
-        ),
-        'Postal address' => array(
-            'Dynamic address form' => 'AddressField',
-        ),
-        'Scheduler' => array(
-            'SchedulerField',
-        ),
-        'Term reference' => array(
-            'Autocomplete'  => 'Field',
-            'Check boxes/radio buttons' => 'CheckboxesField',
-            'Select list'   => 'SelectListField',
-        ),
-        'Text' => array(
-            'Text field' => 'Field',
-        ),
     );
 
     /**
@@ -234,29 +163,9 @@ class Field
     }
 
     /**
-     * Gets the field selector.
-     *
-     * @return string
-     */
-    public function getSelector()
-    {
-        return $this->selector;
-    }
-
-    /**
-     * Sets the field selector.
-     *
-     * @param string $selector
-     */
-    public function setSelector($selector)
-    {
-        $this->selector = $selector;
-    }
-
-    /**
      * Gets the field's widget.
      *
-     * @return string
+     * @return Widget
      */
     public function getWidget()
     {
@@ -266,7 +175,7 @@ class Field
     /**
      * Sets the field's widget.
      *
-     * @param string $widget
+     * @param Widget $widget
      */
     public function setWidget($widget)
     {
@@ -356,29 +265,7 @@ class Field
      */
     public static function parseYaml($yaml)
     {
-        $classPrefix = 'Codeception\\Module\\Drupal\\ContentTypeRegistry\\Fields\\';
-        $class = $classPrefix . 'Field';
-
-        if (isset($yaml['class'])) {
-            // This field has explicitly set which class it wants to use.
-            $class = $yaml['class'];
-        } elseif (isset($yaml['type'])) {
-            // Attempt to derive the class using the field's type.
-            if (in_array($yaml['type'], static::$fieldsWithNoWidget)) {
-                // The field has no widget, so just get the class without the need to consider the widget.
-                if (isset(static::$fieldClasses[$yaml['type']])) {
-                    $class = $classPrefix . static::$fieldClasses[$yaml['type']];
-                }
-            } elseif (isset($yaml['widget'])) {
-                // The field has a class and a widget, so consider both when selecting a class.
-                if (isset(static::$fieldClasses[$yaml['type']][$yaml['widget']])) {
-                    $class = $classPrefix . static::$fieldClasses[$yaml['type']][$yaml['widget']];
-                }
-            }
-        }
-
-        /** @var Field $field */
-        $field = new ReflectionClass($class);
+        $field = new Field();
 
         // If we got here, we're not dealing with a global field, so process it normally.
         if (isset($yaml['machineName'])) {
@@ -390,11 +277,13 @@ class Field
         if (isset($yaml['type'])) {
             $field->setType($yaml['type']);
         }
-        if (isset($yaml['selector'])) {
-            $field->setSelector($yaml['selector']);
-        }
         if (isset($yaml['widget'])) {
-            $field->setWidget($yaml['widget']);
+            $field->setWidget(Widget::create($yaml['widget'], $field));
+        } else {
+            $field->setWidget(Widget::create($yaml['type'], $field));
+        }
+        if (isset($yaml['selector'])) {
+            $field->getWidget()->setSelector($yaml['selector']);
         }
         if (isset($yaml['required']) && $yaml['required'] != 'false') {
             $field->setRequired(true);
@@ -444,7 +333,7 @@ class Field
      * @param mixed $value
      *   The value to put into the field. If left out, will use a random value obtained from getTestData().
      */
-    public function fillField(WebInterface $I, $value = null)
+    public function fill(WebInterface $I, $value = null)
     {
         // Explicitly check for null here. empty() would not cut it because it would trigger if you wanted to fill the
         // field with a 0 digit or similar.
@@ -452,7 +341,7 @@ class Field
             $value = $this->getTestData();
         }
 
-        $I->fillField($this->getSelector(), $value);
+        $this->getWidget()->fill($I, $value);
     }
 
     /**
