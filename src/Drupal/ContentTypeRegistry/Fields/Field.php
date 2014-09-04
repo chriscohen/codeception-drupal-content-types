@@ -102,7 +102,7 @@ class Field
             'Pop-up calendar' => 'PopUpCalendarField',
         ),
         'Email' => array(
-            'Text field' => 'Text',
+            'Text field' => 'Field',
         ),
         'Entity Reference' => array(
             'Autocomplete' => 'Field',
