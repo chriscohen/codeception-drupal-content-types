@@ -51,7 +51,7 @@ abstract class Widget
         'Node module element'       => 'TextWidget',
         'Poll module settings'      => 'PollWidget',
         'Pop-up calendar'           => 'PopUpCalendarWidget',
-        'Scheduler'                 => 'SchedularWidget',
+        'Scheduler'                 => 'SchedulerWidget',
         'Select list'               => 'SelectListWidget',
         'Single on/off checkbox'    => 'SingleCheckboxWidget',
         'Text area (multiple rows)' => 'TextAreaWidget',
