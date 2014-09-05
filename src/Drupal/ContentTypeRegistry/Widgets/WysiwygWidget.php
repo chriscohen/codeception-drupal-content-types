@@ -7,13 +7,13 @@
 namespace Codeception\Module\Drupal\ContentTypeRegistry\Widgets;
 
 /**
- * Class WsyiwygWidget
+ * Class WysiwygWidget
  *
  * @todo placeholder class until we figure out how to deal with this type of field!
  *
  * @package Codeception\Module\Drupal\ContentTypeRegistry\Widgets
  */
-class WsyiwygWidget extends Widget
+class WysiwygWidget extends Widget
 {
 
 }
