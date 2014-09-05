@@ -15,5 +15,11 @@ namespace Codeception\Module\Drupal\ContentTypeRegistry\Widgets;
  */
 class MediaWidget extends Widget
 {
-
+    /**
+     * Constructor.
+     */
+    public function __construct()
+    {
+        $this->name = 'Media file selector';
+    }
 }

@@ -13,5 +13,13 @@ namespace Codeception\Module\Drupal\ContentTypeRegistry\Widgets;
  */
 class TextAreaWidget extends Widget
 {
+    /**
+     * Constructor.
+     */
+    public function __construct()
+    {
+        $this->name = 'Text area (multiple rows)';
+    }
+
     // Nothing required here as the base class fill() method will do nicely.
 }

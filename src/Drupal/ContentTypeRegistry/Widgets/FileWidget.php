@@ -16,6 +16,14 @@ use Codeception\Util\WebInterface;
 class FileWidget extends Widget
 {
     /**
+     * Constructor.
+     */
+    public function __construct()
+    {
+        $this->name = 'File';
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function fill(WebInterface $I, $value = null)

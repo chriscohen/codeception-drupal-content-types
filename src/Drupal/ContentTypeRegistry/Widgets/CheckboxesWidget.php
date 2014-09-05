@@ -16,6 +16,14 @@ use Codeception\Util\WebInterface;
 class CheckboxesWidget extends Widget
 {
     /**
+     * Constructor.
+     */
+    public function __construct()
+    {
+        $this->name = 'Check boxes/radio buttons';
+    }
+
+    /**
      * {@inheritdoc}
      *
      * The $value parameter should contain an array of all checkboxes to be checked or unchecked (have their status

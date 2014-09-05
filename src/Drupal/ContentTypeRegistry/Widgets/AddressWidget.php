@@ -13,5 +13,13 @@ namespace Codeception\Module\Drupal\ContentTypeRegistry\Widgets;
  */
 class AddressWidget extends Widget
 {
+    /**
+     * Constructor.
+     */
+    public function __construct()
+    {
+        $this->name = 'Dynamic address form';
+    }
+
     // @todo need to make a fill() method that works here.
 }

@@ -9,7 +9,6 @@ namespace Codeception\Module\Drupal\ContentTypeRegistry\Widgets;
 use Codeception\Module\Drupal\ContentTypeRegistry\Fields\Field;
 use Codeception\Util\WebInterface;
 use InvalidArgumentException;
-use ReflectionClass;
 
 /**
  * Class Widget
@@ -18,6 +17,13 @@ use ReflectionClass;
  */
 abstract class Widget
 {
+    /**
+     * The name of the widget, as listed on the admin 'manage fields' page.
+     *
+     * @var string
+     */
+    protected $name;
+
     /**
      * A reference to the field object to which this widget is attached.
      *
@@ -59,6 +65,28 @@ abstract class Widget
         'Text field'                                => 'TextWidget',
         'Text area with a summary'                  => 'WysiwygWidget',
     );
+
+    /**
+     * Gets the name of this widget.
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Sets the name of this widget.
+     *
+     * Note that often this is not necessary as the widget's name is automatically set in the constructor.
+     *
+     * @param string $name
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
 
     /**
      * Gets the field to which this widget belongs.

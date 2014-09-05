@@ -15,5 +15,13 @@ namespace Codeception\Module\Drupal\ContentTypeRegistry\Widgets;
  */
 class PopUpCalendarWidget extends Widget
 {
+    /**
+     * Constructor.
+     */
+    public function __construct()
+    {
+        $this->name = 'Pop-up calendar';
+    }
+
     // Nothing needed here as the base class's fill() will take care of filling the text-based date widget.
 }

@@ -15,5 +15,11 @@ namespace Codeception\Module\Drupal\ContentTypeRegistry\Widgets;
  */
 class WysiwygWidget extends Widget
 {
-
+    /**
+     * Constructor.
+     */
+    public function __construct()
+    {
+        $this->name = 'Text area with a summary';
+    }
 }

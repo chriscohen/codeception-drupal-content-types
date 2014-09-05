@@ -16,6 +16,14 @@ use Codeception\Util\WebInterface;
 class SelectListWidget extends Widget
 {
     /**
+     * Constructor.
+     */
+    public function __construct()
+    {
+        $this->name = 'Select list';
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function fill(WebInterface $I, $value = null)

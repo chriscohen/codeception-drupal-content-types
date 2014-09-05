@@ -16,6 +16,14 @@ use Codeception\Util\WebInterface;
 class LinkWidget extends Widget
 {
     /**
+     * Constructor.
+     */
+    public function __construct()
+    {
+        $this->name = 'Link';
+    }
+
+    /**
      * {@inheritdoc}
      *
      * For this field, $value should be an array with the 'title' and 'url' keys.

@@ -16,6 +16,14 @@ use Codeception\Util\WebInterface;
 class SingleCheckboxWidget extends Widget
 {
     /**
+     * Constructor.
+     */
+    public function __construct()
+    {
+        $this->name = 'Single on/off checkbox';
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function fillField(WebInterface $I, $value = null)

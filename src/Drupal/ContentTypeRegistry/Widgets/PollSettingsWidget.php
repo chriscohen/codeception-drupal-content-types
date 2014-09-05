@@ -13,5 +13,13 @@ namespace Codeception\Module\Drupal\ContentTypeRegistry\Widgets;
  */
 class PollSettingsWidget extends Widget
 {
+    /**
+     * Constructor.
+     */
+    public function __construct()
+    {
+        $this->name = 'Poll module settings';
+    }
+
     // @todo need to make a fill() method that works here.
 }

@@ -13,5 +13,13 @@ namespace Codeception\Module\Drupal\ContentTypeRegistry\Widgets;
  */
 class TextWidget extends Widget
 {
+    /**
+     * Constructor.
+     */
+    public function __construct()
+    {
+        $this->name = 'Text field';
+    }
+
     // Nothing required here as the base class fill() method will do nicely.
 }
