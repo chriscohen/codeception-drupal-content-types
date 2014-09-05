@@ -42,21 +42,21 @@ abstract class Widget
      * @var array
      */
     protected static $widgetClasses = array(
-        'Autocomplete'              => 'AutocompleteWidget',
-        'Check boxes/radio buttons' => 'CheckboxesWidget',
-        'Dynamic address form'      => 'AddressWidget',
-        'File'                      => 'FileWidget',
-        'Link'                      => 'LinkWidget',
-        'Media file selector'       => 'MediaWidget',
-        'Node module element'       => 'TextWidget',
-        'Poll module settings'      => 'PollWidget',
-        'Pop-up calendar'           => 'PopUpCalendarWidget',
-        'Scheduler'                 => 'SchedulerWidget',
-        'Select list'               => 'SelectListWidget',
-        'Single on/off checkbox'    => 'SingleCheckboxWidget',
-        'Text area (multiple rows)' => 'TextAreaWidget',
-        'Text field'                => 'TextWidget',
-        'Text area with a summary'  => 'WysiwygWidget',
+        'Autocomplete'                              => 'AutocompleteWidget',
+        'Check boxes/radio buttons'                 => 'CheckboxesWidget',
+        'Dynamic address form'                      => 'AddressWidget',
+        'File'                                      => 'FileWidget',
+        'Link'                                      => 'LinkWidget',
+        'Media file selector'                       => 'MediaWidget',
+        'Node module element'                       => 'TextWidget',
+        'Poll module settings'                      => 'PollWidget',
+        'Pop-up calendar'                           => 'PopUpCalendarWidget',
+        'Fieldset containing scheduling settings'   => 'SchedulerWidget',
+        'Select list'                               => 'SelectListWidget',
+        'Single on/off checkbox'                    => 'SingleCheckboxWidget',
+        'Text area (multiple rows)'                 => 'TextAreaWidget',
+        'Text field'                                => 'TextWidget',
+        'Text area with a summary'                  => 'WysiwygWidget',
     );
 
     /**
