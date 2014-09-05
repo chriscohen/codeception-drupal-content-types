@@ -121,6 +121,8 @@ abstract class Widget
             /** @var Widget $widget */
             $widget = new $class();
             $widget->setField($field);
+
+            return $widget;
         } else {
             throw new InvalidArgumentException('Widget class could not be retrieved for the ' . $type . ' widget');
         }
