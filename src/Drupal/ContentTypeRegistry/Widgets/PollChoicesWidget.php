@@ -1,17 +1,17 @@
 <?php
 /**
  * @file
- * Represents a poll options widget on a Drupal entity form.
+ * Represents a poll choices widget on a Drupal entity form.
  */
 
 namespace Codeception\Module\Drupal\ContentTypeRegistry\Widgets;
 
 /**
- * Class PollWidget
+ * Class PollChoicesWidget
  *
  * @package Codeception\Module\Drupal\ContentTypeRegistry\Widgets
  */
-class PollWidget extends Widget
+class PollChoicesWidget extends Widget
 {
     // @todo need to make a fill() method that works here.
 }
