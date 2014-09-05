@@ -13,7 +13,7 @@ use Codeception\Util\WebInterface;
  *
  * @package Codeception\Module\Drupal\ContentTypeRegistry\Widgets
  */
-class CheckboxesField extends Widget
+class CheckboxesWidget extends Widget
 {
     /**
      * {@inheritdoc}

@@ -13,7 +13,7 @@ namespace Codeception\Module\Drupal\ContentTypeRegistry\Widgets;
  *
  * @package Codeception\Module\Drupal\ContentTypeRegistry\Widgets
  */
-class PopUpCalendarField extends Widget
+class PopUpCalendarWidget extends Widget
 {
     // Nothing needed here as the base class's fill() will take care of filling the text-based date widget.
 }

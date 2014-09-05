@@ -13,7 +13,7 @@ use Codeception\Util\WebInterface;
  *
  * @package Codeception\Module\Drupal\ContentTypeRegistry\Widgets
  */
-class FileField extends Widget
+class FileWidget extends Widget
 {
     /**
      * {@inheritdoc}

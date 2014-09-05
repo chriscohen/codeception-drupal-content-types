@@ -4,7 +4,7 @@
  * Represents a single on/off checkbox field on a Drupal entity.
  */
 
-namespace Codeception\Module\Drupal\ContentTypeRegistry\Fields;
+namespace Codeception\Module\Drupal\ContentTypeRegistry\Widgets;
 
 use Codeception\Util\WebInterface;
 
@@ -13,7 +13,7 @@ use Codeception\Util\WebInterface;
  *
  * @package Codeception\Module\Drupal\ContentTypeRegistry\Fields
  */
-class SingleCheckboxField extends Field
+class SingleCheckboxWidget extends Widget
 {
     /**
      * {@inheritdoc}
