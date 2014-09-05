@@ -116,10 +116,10 @@ abstract class Widget
     public static function create($type, $field)
     {
         if (isset(static::$widgetClasses[$type])) {
-            $classPrefix = 'Codeception\\Module\\Drupal\\ContentTypeRegistry\\Widgets\\';
+            $class = 'Codeception\\Module\\Drupal\\ContentTypeRegistry\\Widgets\\' . static::$widgetClasses[$type];
 
             /** @var Widget $widget */
-            $widget = new ReflectionClass($classPrefix . static::$widgetClasses[$type]);
+            $widget = new $class();
             $widget->setField($field);
         } else {
             throw new InvalidArgumentException('Widget class could not be retrieved for the ' . $type . ' widget');
