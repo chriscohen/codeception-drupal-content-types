@@ -11,7 +11,7 @@ use Codeception\Module\Drupal\ContentTypeRegistry\ContentType;
 use Codeception\Module\Drupal\ContentTypeRegistry\Fields\Field;
 use Codeception\Module\Drupal\ContentTypeRegistry\ContentTypeRegistryStorageInterface;
 use Codeception\Module\Drupal\ContentTypeRegistry\ContentTypeRegistryYamlStorage;
-use Codeception\Util\WebInterface;
+use Codeception\Lib\Interfaces\Web as WebInterface;
 use Codeception\Module\Drupal\Pages\AdminNodeAddPage;
 use InvalidArgumentException;
 
