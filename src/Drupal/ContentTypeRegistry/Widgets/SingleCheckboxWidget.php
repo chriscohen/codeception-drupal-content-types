@@ -6,8 +6,6 @@
 
 namespace Codeception\Module\Drupal\ContentTypeRegistry\Widgets;
 
-use Codeception\Util\WebInterface;
-
 /**
  * Class SingleCheckboxField
  *
@@ -26,7 +24,7 @@ class SingleCheckboxWidget extends Widget
     /**
      * {@inheritdoc}
      */
-    public function fillField(WebInterface $I, $value = null)
+    public function fillField($I, $value = null)
     {
         if ($value == true) {
             $I->checkOption($this->getSelector());

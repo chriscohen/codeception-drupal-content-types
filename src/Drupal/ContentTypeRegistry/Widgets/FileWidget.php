@@ -6,8 +6,6 @@
 
 namespace Codeception\Module\Drupal\ContentTypeRegistry\Widgets;
 
-use Codeception\Util\WebInterface;
-
 /**
  * Class FileWidget
  *
@@ -26,7 +24,7 @@ class FileWidget extends Widget
     /**
      * {@inheritdoc}
      */
-    public function fill(WebInterface $I, $value = null)
+    public function fill($I, $value = null)
     {
         $I->attachFile($this->getSelector(), $value);
     }

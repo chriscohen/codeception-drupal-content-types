@@ -6,8 +6,6 @@
 
 namespace Codeception\Module\Drupal\ContentTypeRegistry\Widgets;
 
-use Codeception\Util\WebInterface;
-
 /**
  * Class CheckboxesWidget
  *
@@ -35,7 +33,7 @@ class CheckboxesWidget extends Widget
      * @todo this will currently ONLY work with checkboxes and not radio buttons, but there is only one widget that
      * covers both checkboxes and radio buttons.
      */
-    public function fill(WebInterface $I, $value = null)
+    public function fill($I, $value = null)
     {
         foreach ($value as $selector => $state) {
             $fullSelector = $this->getSelector() . '-' . $selector;
