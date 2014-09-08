@@ -142,7 +142,7 @@ class DrupalContentTypeRegistry extends Module
      *   filled, and the values should be the data to be used. Any fields ommitted here will use any testData from
      *   contentTypes.yml to obtain their values.
      */
-    public function createNode(WebInterface $I, $type, $data)
+    public function createNode(WebInterface $I, $type, $data = array())
     {
         // Make sure we are trying to create a valid content type.
         if (!$this->isValidContentType($type)) {
