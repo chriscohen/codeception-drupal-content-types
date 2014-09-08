@@ -78,6 +78,7 @@ ContentTypes:
                     - grumpy
                     - happy
                     - wacky
+        submit: "#edit-submit-me-please"
 ```
 
 ### GlobalFields
@@ -115,6 +116,8 @@ of the actual naming, so you could give the content type any key you like).
     - **testData** should contain the dummy data used to test this field. Each field can be instructed to fill itself
       with test data and this is the data that will be used. If an array of values if provided, one can be chosen at
       random by the Field class. Special values can also be used here. See 'special values' below.
+- **submit** is the CSS or XPath used to find the submit button on the node add or edit form for this content type. The
+  Drupal default is "#edit-submit" and this can be omitted if you're using the default on your site.
 
 #### Special values
 

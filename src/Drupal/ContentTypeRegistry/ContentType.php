@@ -40,6 +40,15 @@ class ContentType
     protected $fields = array();
 
     /**
+     * The selector used on this content type's node add or edit form in order to submit the page.
+     *
+     * A safe default is provided.
+     *
+     * @var string
+     */
+    protected $submitSelector = '#edit-submit';
+
+    /**
      * Get the content type human name.
      *
      * @return string
@@ -134,6 +143,29 @@ class ContentType
     }
 
     /**
+     * Gets the submit button selector on the node add or edit form for this content type.
+     *
+     * @return string
+     */
+    public function getSubmitSelector()
+    {
+        return $this->submitSelector;
+    }
+
+    /**
+     * Sets the submit button selector on the node add or edit form for this content type.
+     *
+     * Note that this is only necessary if it differs from the Drupal default value.
+     *
+     * @param string $submitSelector
+     *   The CSS or XPath selector used to identify the submit button on the node add or edit form.
+     */
+    public function setSubmitSelector($submitSelector)
+    {
+        $this->submitSelector = $submitSelector;
+    }
+
+    /**
      * Construct a ContentType by parsing yaml configuration.
      *
      * @param array $yaml
@@ -164,6 +196,10 @@ class ContentType
                 }
 
             }
+        }
+
+        if (isset($yaml['submit'])) {
+            $contentType->setSubmitSelector($yaml['submit']);
         }
 
         return $contentType;
