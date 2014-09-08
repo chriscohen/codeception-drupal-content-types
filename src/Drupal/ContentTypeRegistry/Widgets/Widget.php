@@ -7,7 +7,7 @@
 namespace Codeception\Module\Drupal\ContentTypeRegistry\Widgets;
 
 use Codeception\Module\Drupal\ContentTypeRegistry\Fields\Field;
-use Codeception\Util\WebInterface;
+use Codeception\Lib\Interfaces\Web;
 use InvalidArgumentException;
 
 /**
@@ -160,12 +160,12 @@ abstract class Widget
     /**
      * Fill this widget on a web form.
      *
-     * @param WebInterface $I
+     * @param Web $I
      *   The WebInterface (like the actor) being used within the active test scenario.
      * @param mixed $value
      *   The value to put into the field's widget.
      */
-    public function fill(WebInterface $I, $value)
+    public function fill($I, $value)
     {
         $I->fillField($this->getSelector(), $value);
     }
