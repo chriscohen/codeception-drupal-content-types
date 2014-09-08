@@ -114,7 +114,21 @@ of the actual naming, so you could give the content type any key you like).
     - **required** can be set to "true" if the field is required. If it's not, just leave this out altogether.
     - **testData** should contain the dummy data used to test this field. Each field can be instructed to fill itself
       with test data and this is the data that will be used. If an array of values if provided, one can be chosen at
-      random by the Field class.
+      random by the Field class. Special values can also be used here. See 'special values' below.
+
+#### Special values
+
+You can use a special value that will be substituted each time the field is created for testing. This is useful, for
+example, if you want to insert a random value. All special values begin with the identifier **special::** and then are
+followed by the type of special value. The types are listed below:
+
+- **randomText** uses eight random alphanumeric characters.
+
+Example:
+
+```yaml
+testData: "special::randomText"
+```
 
 ## Suite-specific contentTypes.yml
 
