@@ -8,7 +8,6 @@ namespace Codeception\Module\Drupal\ContentTypeRegistry\Fields;
 
 use Codeception\Exception\Configuration as ConfigurationException;
 use Codeception\Util\WebInterface;
-use ReflectionClass;
 use Codeception\Module\Drupal\ContentTypeRegistry\Widgets\Widget;
 
 /**
