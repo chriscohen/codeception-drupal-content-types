@@ -154,7 +154,9 @@ abstract class Widget
 
             return $widget;
         } else {
-            throw new InvalidArgumentException('Widget class could not be retrieved for the ' . $type . ' widget');
+            throw new InvalidArgumentException(
+                'Widget class could not be retrieved for the ' . $yaml['type'] . ' widget'
+            );
         }
     }
 
