@@ -236,7 +236,7 @@ class Field
     public function setTestData($testData)
     {
         // Process the value if it's a "special" value.
-        $testData = $this->parseSpecialValue($testData);
+        $testData = static::parseSpecialValue($testData);
 
         $this->testData = $testData;
     }
@@ -373,8 +373,19 @@ class Field
      *   The processed value. For example, if random text was requested, returns random text instead of the value that
      *   requests random text.
      */
-    public function parseSpecialValue($value)
+    public static function parseSpecialValue($value)
     {
+        // If array, recurse values.
+        if (is_array($value)) {
+            $output = array();
+
+            foreach ($value as $key => $innerValue) {
+                $output[$key] = Field::parseSpecialValue($innerValue);
+            }
+
+            return $output;
+        }
+
         // If we're not dealing with a special value we can just bail out immediately at this point.
         if (substr($value, 0, 9) != 'special::') {
             return $value;
@@ -385,7 +396,7 @@ class Field
         switch ($special) {
             case 'randomText':
             default:
-                $value = $this::randomText();
+                $value = static::randomText();
                 break;
         }
 
