@@ -142,13 +142,14 @@ abstract class Widget
      *
      * @throws InvalidArgumentException
      */
-    public static function create($type, $field)
+    public static function create($yaml, $field)
     {
-        if (isset(static::$widgetClasses[$type])) {
-            $class = 'Codeception\\Module\\Drupal\\ContentTypeRegistry\\Widgets\\' . static::$widgetClasses[$type];
+        if (isset(static::$widgetClasses[$yaml['type']])) {
+            $class = 'Codeception\\Module\\Drupal\\ContentTypeRegistry\\Widgets\\' .
+                static::$widgetClasses[$yaml['type']];
 
             /** @var Widget $widget */
-            $widget = new $class();
+            $widget = new $class($yaml);
             $widget->setField($field);
 
             return $widget;

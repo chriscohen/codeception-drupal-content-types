@@ -275,11 +275,7 @@ class Field
         }
         if (isset($yaml['type'])) {
             $field->setType($yaml['type']);
-        }
-        if (isset($yaml['widget'])) {
-            $field->setWidget(Widget::create($yaml['widget'], $field));
-        } else {
-            $field->setWidget(Widget::create($yaml['type'], $field));
+            $field->setWidget(Widget::create($yaml, $field));
         }
         if (isset($yaml['selector'])) {
             $field->getWidget()->setSelector($yaml['selector']);
