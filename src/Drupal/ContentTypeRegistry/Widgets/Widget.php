@@ -131,9 +131,11 @@ abstract class Widget
     /**
      * Create and return a widget of the specified type.
      *
-     * @param string $type
-     *   The type of widget. This will be a string that either describes the widget as found on the 'manage fields'
-     *   admin page, or, in the case of fields that don't have widgets listed there, the type of the field itself.
+     * @param string $yaml
+     *   The yaml from contentTypes.yml that describes the field. Should contain the type of the widget, and,
+     *   optionally, the widget name. The latter will be a string found in the 'widget' column on the 'manage fields'
+     *   admin page, or, in the case of fields that don't have widgets listed there, the type of the field itself, from
+     *   the 'type' column on that page.
      * @param Field $field
      *   The field that is to become the parent for this widget.
      *
