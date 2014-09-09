@@ -146,9 +146,12 @@ abstract class Widget
      */
     public static function create($yaml, $field)
     {
-        if (isset(static::$widgetClasses[$yaml['type']])) {
+        // Use the name of the widget. If there isn't one, use the type of the field instead.
+        $type = isset($yaml['widget']) ? $yaml['widget'] : $yaml['type'];
+
+        if (isset(static::$widgetClasses[$type])) {
             $class = 'Codeception\\Module\\Drupal\\ContentTypeRegistry\\Widgets\\' .
-                static::$widgetClasses[$yaml['type']];
+                static::$widgetClasses[$type];
 
             /** @var Widget $widget */
             $widget = new $class($yaml);
@@ -157,7 +160,7 @@ abstract class Widget
             return $widget;
         } else {
             throw new InvalidArgumentException(
-                'Widget class could not be retrieved for the ' . $yaml['type'] . ' widget'
+                'Widget class could not be retrieved for the ' . $type . ' widget'
             );
         }
     }
