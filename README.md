@@ -133,6 +133,19 @@ Example:
 testData: "special::randomText"
 ```
 
+## Specific widget types
+
+### WysiwygWidget
+
+Use this for WYSIWYG fields. The selector should be the ID of the text area element for this field, but without the
+"-value" part at the end. For example, for a body field, you might use:
+
+```yaml
+selector: "#edit-body-und-0"
+```
+
+Currently the widget will switch to plain text format to enter data.
+
 ## Suite-specific contentTypes.yml
 
 You can put a separate contentTypes.yml in each suite folder if you prefer, and these files can override the main
