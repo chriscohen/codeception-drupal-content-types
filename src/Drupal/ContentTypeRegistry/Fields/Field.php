@@ -221,7 +221,7 @@ class Field
             if ($index > -1 && isset($this->testData[$index])) {
                 return $this->testData[$index];
             } else {
-                return array_rand($this->testData);
+                return $this->testData[array_rand($this->testData)];
             }
         } else {
             return $this->testData;
