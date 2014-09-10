@@ -23,5 +23,13 @@ class PopUpCalendarWidget extends Widget
         $this->name = 'Pop-up calendar';
     }
 
+    /**
+     * {@inheritdoc}
+     */
+    public function getCssOrXpath()
+    {
+        return '#' . $this->getSelector() . '-0-value-datepicker-popup-0';
+    }
+
     // Nothing needed here as the base class's fill() will take care of filling the text-based date widget.
 }
