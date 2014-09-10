@@ -26,6 +26,6 @@ class RadioButtonsWidget extends Widget
      */
     public function fill($I, $value = null)
     {
-        $I->selectOption('//input[@name="' . $this->getSelector() . '"]', $value);
+        $I->selectOption('//div[contains(@class, "form-item-' . $this->getSelector() . '")]/input', $value);
     }
 }
