@@ -120,6 +120,14 @@ abstract class Widget
     }
 
     /**
+     * Gets a full CSS or XPath selector that can be applied to the web page to identify the widget.
+     */
+    public function getCssOrXpath()
+    {
+        return '#' . $this->selector;
+    }
+
+    /**
      * Sets the field selector.
      *
      * @param string $selector
@@ -181,6 +189,6 @@ abstract class Widget
      */
     public function fill($I, $value)
     {
-        $I->fillField($this->getSelector(), $value);
+        $I->fillField($this->getCssOrXpath(), $value);
     }
 }

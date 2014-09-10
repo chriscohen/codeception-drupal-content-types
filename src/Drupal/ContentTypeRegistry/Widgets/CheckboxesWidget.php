@@ -24,6 +24,21 @@ class CheckboxesWidget extends Widget
     /**
      * {@inheritdoc}
      *
+     * @param string $option
+     *   The label on the checkbox that is to be checked or unchecked.
+     */
+    public function getCssOrXpath($option)
+    {
+        return sprintf(
+            '//div[@id="%s"]//label[contains(text(), "%s")]/../input',
+            $this->getSelector(),
+            $option
+        );
+    }
+
+    /**
+     * {@inheritdoc}
+     *
      * The $value parameter should contain an array of all checkboxes to be checked or unchecked (have their status
      * altered). The key should be the label on the checkbox. For example, if the selector is #edit-checkboxes-und
      * (which describes the checkboxes container) and the exact checkbox you want to check is labelled "Foobarbaz",
@@ -33,13 +48,10 @@ class CheckboxesWidget extends Widget
     public function fill($I, $value = null)
     {
         foreach ($value as $option => $state) {
-            $fullSelector = '//div[@id="' . $this->getSelector() . '"]//label[contains(text(), "' . $option .
-                '")]/../input';
-
             if ($state === true) {
-                $I->checkOption($fullSelector);
+                $I->checkOption($this->getCssOrXpath($option));
             } else {
-                $I->uncheckOption($fullSelector);
+                $I->uncheckOption($this->getCssOrXpath($option));
             }
         }
     }

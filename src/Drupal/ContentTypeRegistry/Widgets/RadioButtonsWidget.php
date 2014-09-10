@@ -24,6 +24,17 @@ class RadioButtonsWidget extends Widget
     /**
      * {@inheritdoc}
      */
+    public function getCssOrXpath()
+    {
+        return sprintf(
+            '//div[contains(@class, "form-item-%s")]/input',
+            $this->getSelector()
+        );
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function fill($I, $value = null)
     {
         $I->selectOption('//div[contains(@class, "form-item-' . $this->getSelector() . '")]/input', $value);
