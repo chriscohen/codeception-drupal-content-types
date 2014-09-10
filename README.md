@@ -135,6 +135,29 @@ testData: "special::randomText"
 
 ## Specific widget types
 
+### AddressWidget
+
+Set the selector for this widget as the first part of the selector for each individual address field inside the widget.
+For example, if the machine name is **field_address** then you would set the selector as follows:
+
+```yaml
+selector:   "#edit-field-address-und-0"
+```
+
+You will need to define the individual elements that go into the address widget since these can be defined differently
+on a per-widget basis.
+
+You can do this with the **elements** key. The array key is the label for each of the fields and the value is the end
+of the selector used, which is joined to the selector described above.
+
+```yaml
+elements:
+    Company:        "-organisation"
+    Address 1:      "-thoroughfare"
+    Address 2:      "-locality"
+    "Town/City":    "-locality"
+```
+
 ### WysiwygWidget
 
 Use this for WYSIWYG fields. The selector should be the ID of the text area element for this field, but without the
