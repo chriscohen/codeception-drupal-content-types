@@ -26,6 +26,6 @@ class RadioButtonsWidget extends Widget
      */
     public function fill($I, $value = null)
     {
-        $I->selectOption('//input[@name="field_price_band[und]"]', $value);
+        $I->selectOption('//input[@name="' . $this->getSelector() . '"]', $value);
     }
 }
