@@ -26,6 +26,14 @@ class WysiwygWidget extends Widget
     /**
      * {@inheritdoc}
      */
+    public function getCssOrXpath()
+    {
+        return '#' . $this->getSelector() . '-0';
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function fill($I, $value)
     {
         // Change the format to plain text in order to get around the way that we can't fill the CKEditor itself.
