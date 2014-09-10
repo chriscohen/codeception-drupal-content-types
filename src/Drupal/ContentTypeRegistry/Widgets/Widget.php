@@ -139,20 +139,17 @@ abstract class Widget
      *   the 'type' column on that page.
      * @param Field $field
      *   The field that is to become the parent for this widget.
-     * @param null|string
-     *   If the widget has a subtype, the subtype to use. For example, the "check boxes/radio buttons" widget can be
-     *   either check boxes or radio buttons, and the subtype is used to differentiate.
      *
      * @return Widget
      *   An object of a class that represents the widget that was specified.
      *
      * @throws InvalidArgumentException
      */
-    public static function create($yaml, $field, $subtype = null)
+    public static function create($yaml, $field)
     {
-        if ($subtype !== null) {
+        if (isset($yaml['subtype'])) {
             // Use the subtype as the type, because one was set.
-            $type = $subtype;
+            $type = $yaml['subtype'];
         } else {
             // Use the name of the widget. If there isn't one, use the type of the field instead.
             $type = isset($yaml['widget']) ? $yaml['widget'] : $yaml['type'];
