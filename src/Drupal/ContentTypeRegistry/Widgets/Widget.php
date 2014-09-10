@@ -102,7 +102,7 @@ abstract class Widget
     /**
      * Sets the field to which this widget belongs.
      *
-     * @param $field
+     * @param Field $field
      */
     public function setField($field)
     {
@@ -112,11 +112,15 @@ abstract class Widget
     /**
      * Gets the field selector.
      *
+     * If a selector has been set explicitly, use it. Otherwise, derive one from the machine name of the parent field.
+     * This is useful because the vast majority of selectors can be derived from the field's machine name, so this saves
+     * the need to set it in every case.
+     *
      * @return string
      */
     public function getSelector()
     {
-        return $this->selector;
+        return isset($this->selector) ? $this->selector : Widget::selectorFromMachine($this->getField()->getMachine());
     }
 
     /**
@@ -190,5 +194,22 @@ abstract class Widget
     public function fill($I, $value)
     {
         $I->fillField($this->getCssOrXpath(), $value);
+    }
+
+    /**
+     * Derive a selector from a machine name.
+     *
+     * For example, if the machine name is field_foo_bar, the derived selector would be edit-field-foo-bar-und.
+     *
+     * @param string $machine
+     *   The machine name from which to derive a selector.
+     *
+     * @return string
+     *   The selector that has been derived from the machine name.
+     */
+    public static function selectorFromMachine($machine)
+    {
+        $converted = str_replace("_", "-", $machine);
+        return 'edit-' . $converted . '-und';
     }
 }
