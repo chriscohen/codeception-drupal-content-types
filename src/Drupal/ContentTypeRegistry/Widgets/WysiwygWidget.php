@@ -22,4 +22,15 @@ class WysiwygWidget extends Widget
     {
         $this->name = 'Text area with a summary';
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function fill($I, $value)
+    {
+        // Change the format to plain text in order to get around the way that we can't fill the CKEditor itself.
+        $I->selectOption($this->getSelector() . '-format--2', 'plain_text');
+
+        $I->fillField($this->getSelector() . '-value', $value);
+    }
 }
