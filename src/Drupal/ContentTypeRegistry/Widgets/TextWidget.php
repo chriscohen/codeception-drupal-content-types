@@ -26,7 +26,13 @@ class TextWidget extends Widget
      */
     public function getCssOrXpath()
     {
-        return '#' . $this->getSelector() . '-0-value';
+        if ($this->getField()->getMachine() == 'title') {
+            return '#edit-title';
+        } elseif ($this->hasSelector()) {
+            return $this->getSelector();
+        } else {
+            return '#' . $this->getSelector() . '-0-value';
+        }
     }
 
     // Nothing required here as the base class fill() method will do nicely.
