@@ -13,6 +13,7 @@ use Codeception\Module\Drupal\ContentTypeRegistry\ContentTypeRegistryStorageInte
 use Codeception\Module\Drupal\ContentTypeRegistry\ContentTypeRegistryYamlStorage;
 use Codeception\Lib\Interfaces\Web as WebInterface;
 use Codeception\Module\Drupal\Pages\AdminNodeAddPage;
+use Codeception\Module\Drupal\Pages\Page;
 use InvalidArgumentException;
 
 /**
@@ -134,7 +135,7 @@ class DrupalContentTypeRegistry extends Module
      * sufficient privileges to access the desired node creation page.
      *
      * @param WebInterface $I
-     *   A reference to the Tester object being used.
+     *   A reference to the Actor object being used.
      * @param string $type
      *   The machine name of the content type to be created.
      * @param array $data
@@ -152,8 +153,14 @@ class DrupalContentTypeRegistry extends Module
         $I->amOnPage(AdminNodeAddPage::route($type));
 
         $contentType = $this->getContentType($type);
+        $title = '';
 
         foreach ($contentType->getFields() as $field) {
+            // Save the title to check later on that the node was created properly.
+            if ($field->getMachine() == 'title') {
+                $title = $field->getTestData();
+            }
+
             if (isset($data[$field->getMachine()])) {
                 $field->fill($I, $data[$field->getMachine()]);
             } else {
@@ -161,6 +168,44 @@ class DrupalContentTypeRegistry extends Module
             }
         }
 
+        // Submit the node.
         $I->click($contentType->getSubmitSelector());
+
+        // Check that the node was created properly.
+        $I->see(
+            sprintf(
+                '%s %s has been created.',
+                $contentType->getHumanName(),
+                $title
+            ),
+            '.alert-success'
+        );
+        $I->dontSee(" ", ".messages.error");
+
+        return $this->grabLastCreatedNid($I);
+    }
+
+    /**
+     * Gets the node ID of the last created node.
+     *
+     * This should only be called just after a node has been saved and we're on the node view page (such as node/1337).
+     *
+     * @param WebInterface $I
+     *   A reference to the Actor object being used.
+     *
+     * @return mixed
+     *   $nid from from node edit tab, or null if not found.
+     */
+    protected function grabLastCreatedNid($I)
+    {
+        // Grab the node id from the Edit tab once the node has been saved.
+        $edit_url = $I->grabAttributeFrom(Page::$nodeEditTabLinkSelector, 'href');
+        $matches = array();
+
+        if (preg_match('~/node/(\d+)/edit~', $edit_url, $matches)) {
+            return $matches[1];
+        }
+
+        return null;
     }
 }
