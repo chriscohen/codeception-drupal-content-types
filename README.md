@@ -108,7 +108,8 @@ of the actual naming, so you could give the content type any key you like).
       sensitivity.
     - **type** is the field type as set in the Drupal UI, on the "manage fields" page. Case-sensitive.
     - **selector** is the CSS or XPath selector used to pick out this field's element where it appears on a node create
-      or edit page.
+      or edit page. Note that this is usually optional and if omitted, will be derived from the field name, which is
+      usually enough.
     - **widget** is the name of the widget for this field as set in the Druapl UI, on the "manage fields" page. Case-
       sensitive. Some fields don't have widgets (such as title) so just leave it out. There is a list of field types
       that are exempted from having a widget, so the ContentTypeRegistry will be aware of this.
