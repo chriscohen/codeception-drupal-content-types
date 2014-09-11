@@ -120,7 +120,7 @@ abstract class Widget
      */
     public function getSelector()
     {
-        return isset($this->selector) ? $this->selector : Widget::selectorFromMachine($this->getField()->getMachine());
+        return isset($this->selector) ? $this->selector : static::selectorFromMachine($this->getField()->getMachine());
     }
 
     /**
