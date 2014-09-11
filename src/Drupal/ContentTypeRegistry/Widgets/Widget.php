@@ -128,7 +128,7 @@ abstract class Widget
      */
     public function getCssOrXpath()
     {
-        return '#' . $this->selector;
+        return '#' . $this->getSelector();
     }
 
     /**
