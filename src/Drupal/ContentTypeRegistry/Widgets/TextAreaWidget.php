@@ -21,5 +21,13 @@ class TextAreaWidget extends Widget
         $this->name = 'Text area (multiple rows)';
     }
 
+    /**
+     * {@inheritdoc}
+     */
+    public function getCssOrXpath()
+    {
+        return '#' . $this->getSelector() . '-0-value';
+    }
+
     // Nothing required here as the base class fill() method will do nicely.
 }
