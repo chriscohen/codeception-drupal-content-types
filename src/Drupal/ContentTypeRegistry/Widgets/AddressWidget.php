@@ -56,6 +56,18 @@ class AddressWidget extends Widget
 
     /**
      * {@inheritdoc}
+     */
+    public function getCssOrXpath()
+    {
+        if ($this->hasSelector()) {
+            return $this->getSelector();
+        } else {
+            return '#' . $this->getSelector() . '-0';
+        }
+    }
+
+    /**
+     * {@inheritdoc}
      *
      * The $value should be an array where the keys are the field labels, such as "Address 1" or "Postcode" and the
      * values contain the data to go in those fields.
