@@ -39,4 +39,13 @@ class RadioButtonsWidget extends Widget
     {
         $I->selectOption('//div[contains(@class, "form-item-' . $this->getSelector() . '")]/input', $value);
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function selectorFromMachine($machine)
+    {
+        $converted = str_replace("_", "-", $machine);
+        return $converted . '-und';
+    }
 }
