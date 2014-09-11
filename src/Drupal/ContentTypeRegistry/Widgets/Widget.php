@@ -51,6 +51,7 @@ abstract class Widget
         'Autocomplete'                              => 'AutocompleteWidget',
         'Check boxes'                               => 'CheckboxesWidget',
         'Dynamic address form'                      => 'AddressWidget',
+        'Email::Text field'                         => 'EmailTextWidget',
         'File'                                      => 'FileWidget',
         'Link'                                      => 'LinkWidget',
         'Media file selector'                       => 'MediaWidget',
@@ -163,7 +164,12 @@ abstract class Widget
      */
     public static function create($yaml, $field)
     {
-        if (isset($yaml['subtype'])) {
+        if (isset($yaml['type']) && $yaml['type'] == 'Email' && isset($yaml['widget'])) {
+            // Handle a special case for email fields.
+            // @todo might want to handle this better by making sure all type/widget combinations are considered in
+            // $widgetClasses rather than only looking at the widget.
+            $type = implode('::', array($yaml['type'], $yaml['widget']));
+        } elseif (isset($yaml['subtype'])) {
             // Use the subtype as the type, because one was set.
             $type = $yaml['subtype'];
         } else {
