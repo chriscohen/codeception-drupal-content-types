@@ -27,9 +27,9 @@ class SingleCheckboxWidget extends Widget
     public function fill($I, $value = null)
     {
         if ($value == true) {
-            $I->checkOption($this->getSelector());
+            $I->checkOption($this->getCssOrXpath());
         } else {
-            $I->uncheckOption($this->getSelector());
+            $I->uncheckOption($this->getCssOrXpath());
         }
     }
 }
