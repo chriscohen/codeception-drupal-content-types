@@ -14,6 +14,7 @@ use Codeception\Module\Drupal\ContentTypeRegistry\ContentTypeRegistryYamlStorage
 use Codeception\Lib\Interfaces\Web as WebInterface;
 use Codeception\Module\Drupal\Pages\AdminNodeAddPage;
 use Codeception\Module\Drupal\Pages\Page;
+use Codeception\Module\Drupal\Pages\NodePage;
 use InvalidArgumentException;
 
 /**
@@ -183,6 +184,31 @@ class DrupalContentTypeRegistry extends Module
         $I->dontSee(" ", ".messages.error");
 
         return $this->grabLastCreatedNid($I);
+    }
+
+    /**
+     * Delete a node with the specified node ID.
+     *
+     * Note that this will not log the user in, so you should ensure the user is logged in and has sufficient
+     * privileges to complete the node deletion.
+     *
+     * @param WebInterface $I
+     *   A reference to the Actor being used.
+     * @param int $nid
+     *   The node ID of the node to be deleted.
+     */
+    public function deleteNode($I, $nid)
+    {
+        if (isset($nid)) {
+            $I->amOnPage(NodePage::route($nid, true));
+
+            $I->click('#edit-delete');
+            $I->see('Are you sure you want to delete');
+
+            // We're now on the confirm deletion page so click that confirm button too.
+            $I->click('#edit-submit');
+            $I->see('has been deleted.', ".alert-success");
+        }
     }
 
     /**
