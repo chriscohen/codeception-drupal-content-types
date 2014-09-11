@@ -212,4 +212,15 @@ abstract class Widget
         $converted = str_replace("_", "-", $machine);
         return 'edit-' . $converted . '-und';
     }
+
+    /**
+     * Determine whether a selector has been set manually for this widget.
+     *
+     * @return bool
+     *   True if the selector has been set manually. False otherwise.
+     */
+    public function hasSelector()
+    {
+        return isset($this->selector);
+    }
 }
