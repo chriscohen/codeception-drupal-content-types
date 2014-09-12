@@ -47,6 +47,11 @@ class CheckboxesWidget extends Widget
      */
     public function fill($I, $value = null)
     {
+        // Skip this if there is no value set.
+        if (empty($value)) {
+            return;
+        }
+
         foreach ($value as $option => $state) {
             if ($state === true) {
                 $I->checkOption($this->getCssOrXpath($option));
