@@ -199,11 +199,13 @@ abstract class Widget
      * @param Web $I
      *   The WebInterface (like the actor) being used within the active test scenario.
      * @param mixed $value
-     *   The value to put into the field's widget.
+     *   The value to put into the field's widget. Optional. If not provided, no fill will be attempted.
      */
-    public function fill($I, $value)
+    public function fill($I, $value = null)
     {
-        $I->fillField($this->getCssOrXpath(), $value);
+        if (!empty($value)) {
+            $I->fillField($this->getCssOrXpath(), $value);
+        }
     }
 
     /**
