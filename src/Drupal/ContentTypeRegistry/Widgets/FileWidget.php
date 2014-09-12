@@ -26,7 +26,9 @@ class FileWidget extends Widget
      */
     public function fill($I, $value = null)
     {
-        $I->attachFile($this->getCssOrXpath(), $value);
+        // @todo for now the attachFile() doesn't work due to a problem in PhantomJS where it returns an HTTP 405 (from
+        // PhantomJS, not from the destination web server), refusing the file that is uploaded.
+        //$I->attachFile($this->getCssOrXpath(), $value);
     }
 
     /**
