@@ -21,5 +21,21 @@ class AutocompleteWidget extends Widget
         $this->name = 'Autocomplete';
     }
 
-    // Nothing required here as the base class fill() method will do nicely.
+    /**
+     * {@inheritdoc}
+     */
+    public function getCssOrXpath()
+    {
+        if ($this->hasSelector()) {
+            return $this->getSelector();
+        } else {
+            switch ($this->getField()->getType()) {
+                case 'Entity Reference':
+                    return '#' . $this->getSelector() . '-0-target-id';
+
+                default:
+                    return '#' . $this->getSelector();
+            }
+        }
+    }
 }
