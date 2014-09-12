@@ -28,7 +28,9 @@ class LinkWidget extends Widget
      */
     public function fill($I, $value = null)
     {
-        $I->fillField($this->getCssOrXpath() . '-0-title', $value['title']);
-        $I->fillField($this->getCssOrXpath() . '-0-url', $value['url']);
+        if (!empty($value)) {
+            $I->fillField($this->getCssOrXpath() . '-0-title', $value['title']);
+            $I->fillField($this->getCssOrXpath() . '-0-url', $value['url']);
+        }
     }
 }
