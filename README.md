@@ -179,12 +179,12 @@ testData:
         Postcode:       Test location postal code
     # Then, if necessary:
     address2:
-            Company:        Test location 2
-            Address 1:      Test location thoroughfare 2
-            Address 2:      Test location locality 2
-            "Town/City":    Test location city 2
-            County:         Test location county 2
-            Postcode:       Test location postal code 2
+        Company:        Test location 2
+        Address 1:      Test location thoroughfare 2
+        Address 2:      Test location locality 2
+        "Town/City":    Test location city 2
+        County:         Test location county 2
+        Postcode:       Test location postal code 2
 ```
 
 ### CheckboxesWidget
