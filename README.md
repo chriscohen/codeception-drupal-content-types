@@ -120,8 +120,9 @@ of the actual naming, so you could give the content type any key you like).
       that are exempted from having a widget, so the ContentTypeRegistry will be aware of this.
     - **required** can be set to "true" if the field is required. If it's not, just leave this out altogether.
     - **testData** should contain the dummy data used to test this field. Each field can be instructed to fill itself
-      with test data and this is the data that will be used. If an array of values if provided, one can be chosen at
-      random by the Field class. Special values can also be used here. See 'special values' below.
+      with test data and this is the data that will be used. Note that unless the field is mandatory and Drupal provides
+      no default value for the field, testData can be left out of the yaml. If an array of values if provided, one can
+      be chosen at random by the Field class. Special values can also be used here. See 'special values' below.
 - **submit** is the CSS or XPath used to find the submit button on the node add or edit form for this content type. The
   Drupal default is "#edit-submit" and this can be omitted if you're using the default on your site.
 
@@ -162,6 +163,45 @@ elements:
     Address 1:      "-thoroughfare"
     Address 2:      "-locality"
     "Town/City":    "-locality"
+```
+
+If you need to set up testData for this field, you will need to put a wrapper around each group of test elements as
+follows:
+
+```yaml
+testData:
+    address1:
+        Company:        Test location
+        Address 1:      Test location thoroughfare
+        Address 2:      Test location locality
+        "Town/City":    Test location city
+        County:         Test location county
+        Postcode:       Test location postal code
+    # Then, if necessary:
+    address2:
+            Company:        Test location 2
+            Address 1:      Test location thoroughfare 2
+            Address 2:      Test location locality 2
+            "Town/City":    Test location city 2
+            County:         Test location county 2
+            Postcode:       Test location postal code 2
+```
+
+### CheckboxesWidget
+
+Remember that you only need to set up testData if the value of each or any checkbox needs to be altered.
+
+If you need to set up testData for a CheckboxesWidget, make sure you put each group of boxes in its own wrapper, as
+follows:
+
+```yaml
+testData:
+    values1:
+        Grapefruit: true
+        Melon:      false
+        Avocado:    true
+    values2:
+        "Big Hairy Kiwi Fruit/Kiwi Fruits": true
 ```
 
 ### WysiwygWidget
