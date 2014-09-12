@@ -9,8 +9,6 @@ namespace Codeception\Module\Drupal\ContentTypeRegistry\Widgets;
 /**
  * Class MediaWidget
  *
- * @todo this will be complicated. Bypassing this one for now!
- *
  * @package Codeception\Module\Drupal\ContentTypeRegistry\Widgets
  */
 class MediaWidget extends Widget
@@ -21,5 +19,13 @@ class MediaWidget extends Widget
     public function __construct()
     {
         $this->name = 'Media file selector';
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function fill($I, $value)
+    {
+        // @todo do nothing here for now. Could do with something sensible/safe here.
     }
 }

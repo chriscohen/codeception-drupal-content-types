@@ -21,5 +21,11 @@ class SchedulerWidget extends Widget
         $this->name = 'Fieldset containing scheduling settings';
     }
 
-    // @todo need to make a fill() method that works here.
+    /**
+     * {@inheritdoc}
+     */
+    public function fill($I, $value)
+    {
+        // @todo do nothing here for now. Could do with something sensible/safe here.
+    }
 }
