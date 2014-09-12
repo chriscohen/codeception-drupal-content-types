@@ -26,6 +26,18 @@ class FileWidget extends Widget
      */
     public function fill($I, $value = null)
     {
-        $I->attachFile($this->getSelector(), $value);
+        $I->attachFile($this->getCssOrXpath(), $value);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getCssOrXpath()
+    {
+        if ($this->hasSelector()) {
+            return $this->getSelector();
+        } else {
+            return '#' . $this->getSelector() . '-0-upload';
+        }
     }
 }
