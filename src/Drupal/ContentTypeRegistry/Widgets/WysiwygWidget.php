@@ -36,9 +36,11 @@ class WysiwygWidget extends Widget
      */
     public function fill($I, $value)
     {
-        // Change the format to plain text in order to get around the way that we can't fill the CKEditor itself.
-        $I->selectOption($this->getCssOrXpath() . '-format--2', 'plain_text');
+        if (!empty($value)) {
+            // Change the format to plain text in order to get around the way that we can't fill the CKEditor itself.
+            $I->selectOption($this->getCssOrXpath() . '-format--2', 'plain_text');
 
-        $I->fillField($this->getCssOrXpath() . '-value', $value);
+            $I->fillField($this->getCssOrXpath() . '-value', $value);
+        }
     }
 }

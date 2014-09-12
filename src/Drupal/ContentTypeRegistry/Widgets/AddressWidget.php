@@ -74,10 +74,12 @@ class AddressWidget extends Widget
      */
     public function fill($I, $value)
     {
-        $selector = $this->getCssOrXpath();
+        if (!empty($value)) {
+            $selector = $this->getCssOrXpath();
 
-        foreach ($this->getElements() as $label => $selectorSuffix) {
-            $I->fillField($selector . $selectorSuffix, $value[$label]);
+            foreach ($this->getElements() as $label => $selectorSuffix) {
+                $I->fillField($selector . $selectorSuffix, $value[$label]);
+            }
         }
     }
 }

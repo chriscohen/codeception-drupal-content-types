@@ -26,6 +26,8 @@ class SelectListWidget extends Widget
      */
     public function fill($I, $value = null)
     {
-        $I->selectOption($this->getCssOrXpath(), $value);
+        if (!empty($value)) {
+            $I->selectOption($this->getCssOrXpath(), $value);
+        }
     }
 }
