@@ -54,6 +54,7 @@ abstract class Widget
         'Dynamic address form'                      => 'AddressWidget',
         'Email::Text field'                         => 'EmailTextWidget',
         'File'                                      => 'FileWidget',
+        'Image'                                     => 'ImageWidget',
         'Link'                                      => 'LinkWidget',
         'Media file selector'                       => 'MediaWidget',
         'Node module element'                       => 'TextWidget',
