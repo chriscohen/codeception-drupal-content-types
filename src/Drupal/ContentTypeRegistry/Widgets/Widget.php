@@ -49,6 +49,7 @@ abstract class Widget
      */
     protected static $widgetClasses = array(
         'Autocomplete'                              => 'AutocompleteWidget',
+        'Autocomplete text field'                   => 'AutocompleteWidget',
         'Check boxes'                               => 'CheckboxesWidget',
         'Dynamic address form'                      => 'AddressWidget',
         'Email::Text field'                         => 'EmailTextWidget',
