@@ -53,6 +53,7 @@ abstract class Widget
         'Check boxes'                               => 'CheckboxesWidget',
         'Dynamic address form'                      => 'AddressWidget',
         'Email::Text field'                         => 'EmailTextWidget',
+        'Embedded'                                  => 'EmbeddedWidget',
         'File'                                      => 'FileWidget',
         'Image'                                     => 'ImageWidget',
         'Link'                                      => 'LinkWidget',
