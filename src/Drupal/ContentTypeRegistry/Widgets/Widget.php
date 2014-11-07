@@ -55,6 +55,7 @@ abstract class Widget
         'Email::Text field'                         => 'EmailTextWidget',
         'Embedded'                                  => 'EmbeddedWidget',
         'File'                                      => 'FileWidget',
+        'Geofield'                                  => 'GeoWidget',
         'Image'                                     => 'ImageWidget',
         'Link'                                      => 'LinkWidget',
         'Media file selector'                       => 'MediaWidget',
