@@ -159,7 +159,12 @@ class DrupalContentTypeRegistry extends Module
         foreach ($contentType->getFields() as $field) {
             // Save the title to check later on that the node was created properly.
             if ($field->getMachine() == 'title') {
-                $title = $field->getTestData();
+                // If we've passed in a custom title use that, otherwise use the default field test data.
+                if (isset($data['title'])) {
+                    $title = $data['title'];
+                } else {
+                    $title = $field->getTestData();
+                }
             }
 
             if (isset($data[$field->getMachine()])) {
