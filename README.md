@@ -231,3 +231,41 @@ way of knowing what directory to look in when it's trying to find the contentTyp
 the root tests directory and has a list of the suites it's supposed to run, but can't determine the directory in which
 the current suite is running. If some way of doing this within Codeception is developed in the future, this extra step
 can be dropped.
+
+## Extras
+
+Sometimes, you will want to simulate the user clicking things on the node edit form that are not actually fields. This
+is where extras come in. You can do things like set the sticky status or the publication status of a node in this way.
+Here is an example:
+
+```yaml
+ContentTypes:
+    news:
+        humanName:    News
+        machineName:  news
+        fields:
+            globals:
+                - title
+                - body
+            field_image:
+                machineName:    field_image
+                label:          Image
+                type:           Image
+                selector:       "#edit-field-image"
+                widget:         Media file selector
+                required:       true
+                testData:       "image1.png"
+        extras:
+            published:
+                machineName:    published
+                label:          Published
+                type:           List (text)
+                selector:       "#edit-published"
+                widget:         Select list
+                testData:       Published
+        submit: "#edit-submit-me-please"
+```
+
+As you can see, these slot alongside fields. You will normally have to set a selector manually for these because the
+naming conventions that apply to fields do not apply here. You can still use the widget property to tell this module
+what type of form widget is being used.
