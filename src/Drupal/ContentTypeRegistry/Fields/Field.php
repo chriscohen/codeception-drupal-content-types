@@ -311,6 +311,9 @@ class Field
         if (isset($yaml['required']) && $yaml['required'] != 'false') {
             $field->setRequired(true);
         }
+        if (isset($yaml['pre'])) {
+            $field->setPre($yaml['pre']);
+        }
         if (isset($yaml['testData'])) {
             $field->setTestData($yaml['testData']);
         }
