@@ -143,6 +143,9 @@ class DrupalContentTypeRegistry extends Module
      *   If you want to provide custom data, the keys in this array should be the machine names of the fields to be
      *   filled, and the values should be the data to be used. Any fields ommitted here will use any testData from
      *   contentTypes.yml to obtain their values.
+     *
+     * @return int
+     *   The node ID of the node that has just been created.
      */
     public function createNode($I, $type, $data = array())
     {
