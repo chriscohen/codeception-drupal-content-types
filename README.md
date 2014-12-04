@@ -119,10 +119,16 @@ of the actual naming, so you could give the content type any key you like).
       sensitive. Some fields don't have widgets (such as title) so just leave it out. There is a list of field types
       that are exempted from having a widget, so the ContentTypeRegistry will be aware of this.
     - **required** can be set to "true" if the field is required. If it's not, just leave this out altogether.
+    - **pre** can be used to specify an XPath selector for an element that should be clicked before the field is filled.
+      If this is set, this element will be clicked and then the field will be filled. If not set, nothing will be
+      clicked before the field is filled. This can be useful for elements that are hidden behind vertical tabs and would
+      not be visible to the user unless the vertical tab is selected first.
     - **testData** should contain the dummy data used to test this field. Each field can be instructed to fill itself
       with test data and this is the data that will be used. Note that unless the field is mandatory and Drupal provides
       no default value for the field, testData can be left out of the yaml. If an array of values if provided, one can
       be chosen at random by the Field class. Special values can also be used here. See 'special values' below.
+- **extras** is a list of all extras (elements to interact with on the node edit form) that aren't fields in their own
+  right. See below for more.
 - **submit** is the CSS or XPath used to find the submit button on the node add or edit form for this content type. The
   Drupal default is "#edit-submit" and this can be omitted if you're using the default on your site.
 

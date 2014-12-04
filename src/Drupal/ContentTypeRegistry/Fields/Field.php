@@ -53,6 +53,13 @@ class Field
     protected $required;
 
     /**
+     * The selector of any item to be clicked before the field is filled.
+     *
+     * @var string
+     */
+    protected $pre;
+
+    /**
      * Test data for this field. Can be a single value, or an array of values. If an array is used, one will be chosen
      * at random or the user can specify which one to use.
      *
@@ -202,6 +209,27 @@ class Field
     }
 
     /**
+     * Gets the selector of any item to be clicked before this field is filled.
+     *
+     * @return string
+     */
+    public function getPre()
+    {
+        return $this->pre;
+    }
+
+    /**
+     * Sets the selector of any item to be clicked before this field is filled.
+     *
+     * @param string $pre
+     *   The selector to be set.
+     */
+    public function setPre($pre)
+    {
+        $this->pre = $pre;
+    }
+
+    /**
      * Get the test data for this field.
      *
      * @param int|string $index
@@ -334,6 +362,11 @@ class Field
         // field with a 0 digit or similar.
         if (is_null($value)) {
             $value = $this->getTestData();
+        }
+
+        // If we need to click something before filling the field, do so.
+        if (isset($this->pre)) {
+            $I->click($this->pre);
         }
 
         $this->getWidget()->fill($I, $value);
