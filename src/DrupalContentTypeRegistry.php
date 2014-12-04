@@ -177,6 +177,15 @@ class DrupalContentTypeRegistry extends Module
             }
         }
 
+        // Handle any 'extras' on the node creation form that aren't fields but still need user interaction.
+        foreach ($contentType->getExtras() as $extra) {
+            if (isset($data[$extra->getMachine()])) {
+                $extra->fill($I, $data[$extra->getMachine()]);
+            } else {
+                $extra->fill($I);
+            }
+        }
+
         // Submit the node.
         $I->click($contentType->getSubmitSelector());
 

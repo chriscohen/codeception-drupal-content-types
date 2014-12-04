@@ -40,6 +40,16 @@ class ContentType
     protected $fields = array();
 
     /**
+     * An array of extra things the content type should know about.
+     *
+     * Extras are like fields, only they're not fully fledged fields. Instead they're form elements found elsewhere
+     * on the create node form, such as the publication state or the "stickiness" of a content type.
+     *
+     * @var Field[]
+     */
+    protected $extras = array();
+
+    /**
      * The selector used on this content type's node add or edit form in order to submit the page.
      *
      * A safe default is provided.
@@ -143,6 +153,60 @@ class ContentType
     }
 
     /**
+     * Get all of the extras for this content type.
+     *
+     * @return Field[]
+     */
+    public function getExtras()
+    {
+        return $this->extras;
+    }
+
+    /**
+     * Set all of the extras for this content type.
+     *
+     * @param Field[] $extras
+     */
+    public function setAllExtras($extras)
+    {
+        $this->extras = $extras;
+    }
+
+    /**
+     * Get an extra with a specific machine name.
+     *
+     * @param string $extraName
+     * @return Field|null
+     */
+    public function getExtra($extraName)
+    {
+        return isset($this->extras[$extraName]) ? $this->extras[$extraName] : null;
+    }
+
+    /**
+     * Set an extra on this content type.
+     *
+     * @param Field $extra
+     */
+    public function setExtra($extra)
+    {
+        $this->extras[$extra->getMachine()] = $extra;
+    }
+
+    /**
+     * Set a group of extras at the same time.
+     *
+     * @param Field[] $extras
+     *   An array of extras. Array keys do not matter.
+     */
+    public function setExtras($extras)
+    {
+        foreach ($extras as $extra) {
+            $this->setExtra($extra);
+        }
+    }
+
+    /**
      * Gets the submit button selector on the node add or edit form for this content type.
      *
      * @return string
@@ -182,6 +246,7 @@ class ContentType
         $contentType->setHumanName($yaml['humanName']);
         $contentType->setMachineName($yaml['machineName']);
 
+        // Set all fields on this content type as defined in the yaml.
         if (isset($yaml['fields'])) {
             foreach ($yaml['fields'] as $key => $fieldData) {
 
@@ -195,6 +260,14 @@ class ContentType
                     $contentType->setField($field);
                 }
 
+            }
+        }
+
+        // Set all extras on this content type as defined in the yaml.
+        if (isset($yaml['extras'])) {
+            foreach ($yaml['extras'] as $key => $extraData) {
+                $extra = Field::parseYaml($extraData);
+                $contentType->setExtra($extra);
             }
         }
 
