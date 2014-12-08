@@ -243,7 +243,7 @@ class Field
      */
     public function getSkippedRoles()
     {
-        return $this->skippedRoles;
+        return empty($this->skippedRoles) ? array() : $this->skippedRoles;
     }
 
     /**
