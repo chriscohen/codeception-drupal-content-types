@@ -78,6 +78,9 @@ ContentTypes:
                 type:           Text
                 selector:       "#edit-field-icon"
                 widget:         Text field
+                skipRoles:
+                    - editor
+                    - publisher
                 testData:
                     - smiley
                     - grumpy
@@ -123,6 +126,8 @@ of the actual naming, so you could give the content type any key you like).
       If this is set, this element will be clicked and then the field will be filled. If not set, nothing will be
       clicked before the field is filled. This can be useful for elements that are hidden behind vertical tabs and would
       not be visible to the user unless the vertical tab is selected first.
+    - **skippedRoles** is an array of role names that will not be able to see this field and should not attempt to fill
+      it in.
     - **testData** should contain the dummy data used to test this field. Each field can be instructed to fill itself
       with test data and this is the data that will be used. Note that unless the field is mandatory and Drupal provides
       no default value for the field, testData can be left out of the yaml. If an array of values if provided, one can

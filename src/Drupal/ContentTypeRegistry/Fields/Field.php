@@ -60,6 +60,13 @@ class Field
     protected $pre;
 
     /**
+     * The list of roles that will not be able to see this field and should not attempt to manipulate or fill it.
+     *
+     * @var string[]
+     */
+    protected $skippedRoles;
+
+    /**
      * Test data for this field. Can be a single value, or an array of values. If an array is used, one will be chosen
      * at random or the user can specify which one to use.
      *
@@ -230,6 +237,27 @@ class Field
     }
 
     /**
+     * Gets the list of roles that should skip this field.
+     *
+     * @return string[]
+     */
+    public function getSkippedRoles()
+    {
+        return $this->skippedRoles;
+    }
+
+    /**
+     * Sets the list of roles that should skip this field.
+     *
+     * @param string[] $skippedRoles
+     *   The roles that should be skipped.
+     */
+    public function setSkippedRoles($skippedRoles)
+    {
+        $this->skippedRoles = $skippedRoles;
+    }
+
+    /**
      * Get the test data for this field.
      *
      * @param int|string $index
@@ -313,6 +341,9 @@ class Field
         }
         if (isset($yaml['pre'])) {
             $field->setPre($yaml['pre']);
+        }
+        if (isset($yaml['skipRoles']) && is_array($yaml['skipRoles'])) {
+            $field->setSkippedRoles($yaml['skipRoles']);
         }
         if (isset($yaml['testData'])) {
             $field->setTestData($yaml['testData']);
@@ -437,5 +468,21 @@ class Field
         }
 
         return $value;
+    }
+
+    /**
+     * Whether to skip filling this field for a particular role.
+     *
+     * This is used when a role cannot see a certain field on the node form.
+     *
+     * @param string $role
+     *   The name of the role.
+     *
+     * @return bool
+     *   True if this field is skipped for the specified role. False if the role is not found, or it is not skipped.
+     */
+    public function isSkipped($role)
+    {
+        return in_array($role, $this->getSkippedRoles());
     }
 }

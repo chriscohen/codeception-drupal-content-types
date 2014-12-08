@@ -143,11 +143,15 @@ class DrupalContentTypeRegistry extends Module
      *   If you want to provide custom data, the keys in this array should be the machine names of the fields to be
      *   filled, and the values should be the data to be used. Any fields ommitted here will use any testData from
      *   contentTypes.yml to obtain their values.
+     * @param string|null $role
+     *   The role being used to fill out the node edit form. This is used to determine which fields need to be skipped
+     *   for the current role (as not all fields will appear for all roles). If not provided, no role will be assumed
+     *   and all fields will be used.
      *
      * @return int
      *   The node ID of the node that has just been created.
      */
-    public function createNode($I, $type, $data = array())
+    public function createNode($I, $type, $data = array(), $role = null)
     {
         // Make sure we are trying to create a valid content type.
         if (!$this->isValidContentType($type)) {
@@ -160,6 +164,11 @@ class DrupalContentTypeRegistry extends Module
         $title = '';
 
         foreach ($contentType->getFields() as $field) {
+            // Skip this field if we are using a role that doesn't see it.
+            if ($field->isSkipped($role)) {
+                continue;
+            }
+
             // Save the title to check later on that the node was created properly.
             if ($field->getMachine() == 'title') {
                 // If we've passed in a custom title use that, otherwise use the default field test data.
@@ -179,6 +188,11 @@ class DrupalContentTypeRegistry extends Module
 
         // Handle any 'extras' on the node creation form that aren't fields but still need user interaction.
         foreach ($contentType->getExtras() as $extra) {
+            // Skip this extra if we are using a role that doesn't see it.
+            if ($extra->isSkipped($role)) {
+                continue;
+            }
+
             if (isset($data[$extra->getMachine()])) {
                 $extra->fill($I, $data[$extra->getMachine()]);
             } else {
