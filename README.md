@@ -115,8 +115,6 @@ of the actual naming, so you could give the content type any key you like).
     reuses exactly a field from another content type, set it up in GlobalFields (above) and just reference it here. An
     exception would be if it had a slight difference, such as when you set a title, but you change its label from
     "Title" to something else. In this case, it wouldn't be able to be a global field.
-  - **globalExtras** is a list of the "reused" extras on this type. This works the same as globalFields but with things
-    that are on the node form that are not actually fields.
   - **properties**: fields can have the following properties...
     - **machineName** is the machine name of the field as seen by Drupal. In general these will start with field_ but
       there might be exceptions such as for title and body fields.
@@ -142,6 +140,8 @@ of the actual naming, so you could give the content type any key you like).
       be chosen at random by the Field class. Special values can also be used here. See 'special values' below.
 - **extras** is a list of all extras (elements to interact with on the node edit form) that aren't fields in their own
   right. See below for more.
+  - **globalExtras** is a list of the "reused" extras on this type. This works the same as globalFields but with things
+    that are on the node form that are not actually fields.
 - **submit** is the CSS or XPath used to find the submit button on the node add or edit form for this content type. The
   Drupal default is "#edit-submit" and this can be omitted if you're using the default on your site.
 
