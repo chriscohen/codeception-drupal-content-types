@@ -97,6 +97,12 @@ useful for things like title and body fields, to save you having to redefine the
 GlobalFields are keyed by machine name (this should be the same name as the machine name of the Drupal field) and the
 values are the same as they would be if they were declared for the fields of a content type (see below).
 
+### GlobalExtras ###
+
+As with GlobalFields above, you can define extras that will be used across all of the content types on the site. This
+is useful if you always want to fill out the published status of a node no matter what type it is, for example. See the
+"extras" section below for more.
+
 ### ContentTypes
 
 Each content type should be keyed according to its machine name (although this is just a hint as machineName takes care
@@ -105,10 +111,12 @@ of the actual naming, so you could give the content type any key you like).
 - **humanName** is the way that the content type is named in the UI (and is case-sensitive).
 - **machineName** is the way that the content type is named to Drupal, and should match whatever is set in Drupal.
 - **fields** is a list of all of the fields on the content type, with their properties.
-  - **globals** is a simple list of the "reused" fields on this type. If your content type has a field that simply
+  - **globalFields** is a simple list of the "reused" fields on this type. If your content type has a field that simply
     reuses exactly a field from another content type, set it up in GlobalFields (above) and just reference it here. An
     exception would be if it had a slight difference, such as when you set a title, but you change its label from
     "Title" to something else. In this case, it wouldn't be able to be a global field.
+  - **globalExtras** is a list of the "reused" extras on this type. This works the same as globalFields but with things
+    that are on the node form that are not actually fields.
   - **properties**: fields can have the following properties...
     - **machineName** is the machine name of the field as seen by Drupal. In general these will start with field_ but
       there might be exceptions such as for title and body fields.

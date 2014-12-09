@@ -236,11 +236,13 @@ class ContentType
      *   Yaml in a standard format as found in contentTypes.yml.
      * @param array $fields
      *   Yaml for the global fields in a standard format as found in contentTypes.yml.
+     * @param array $extras
+     *   Yaml for the global extras in a standard format as found in contentTypes.yml.
      *
      * @return ContentType
      *   A fully populated ContentType object.
      */
-    public static function parseYaml($yaml, $fields = array())
+    public static function parseYaml($yaml, $fields = array(), $extras = array())
     {
         $contentType = new ContentType();
         $contentType->setHumanName($yaml['humanName']);
@@ -250,7 +252,9 @@ class ContentType
         if (isset($yaml['fields'])) {
             foreach ($yaml['fields'] as $key => $fieldData) {
 
-                if ($key == 'globals') {
+                // The 'globals' key is the old way of writing it instead of 'globalFields' which is maintained for
+                // backwards compatibility.
+                if ($key == 'globals' || $key == 'globalFields') {
                     // Handle the list of global fields specially.
                     $fields = Field::parseGlobalFields($fieldData, $fields);
                     $contentType->setFields($fields);
@@ -266,8 +270,17 @@ class ContentType
         // Set all extras on this content type as defined in the yaml.
         if (isset($yaml['extras'])) {
             foreach ($yaml['extras'] as $key => $extraData) {
-                $extra = Field::parseYaml($extraData);
-                $contentType->setExtra($extra);
+
+                if ($key == 'globalExtras') {
+                    // Handle the list of global extras specially.
+                    $extras = Field::parseGlobalFields($extraData, $extras);
+                    $contentType->setExtras($extras);
+                }
+                else {
+                    $extra = Field::parseYaml($extraData);
+                    $contentType->setExtra($extra);
+                }
+
             }
         }
 
