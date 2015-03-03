@@ -389,8 +389,11 @@ class Field
             $preSteps[] = array('click', array($yaml['pre']));
         }
         if (isset($yaml['preSteps'])) {
-            $field->setPreSteps(array_merge($preSteps, $yaml['preSteps']));
+            $preSteps = array_merge($preSteps, $yaml['preSteps']);
         }
+
+        $field->setPreSteps($preSteps);
+
         if (isset($yaml['postSteps'])) {
             $field->setPostSteps($yaml['postSteps']);
         }
