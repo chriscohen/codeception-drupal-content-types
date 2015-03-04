@@ -53,11 +53,32 @@ class Field
     protected $required;
 
     /**
-     * The selector of any item to be clicked before the field is filled.
+     * The sequence of steps to be run before the field is filled.
      *
-     * @var string
+     * @var array
+     *   Array of steps. A step is an array where the first element is the
+     *   method to call and the 2nd element is an array of arguments to pass
+     *   to the method.
+     *
+     *   e.g. array("click", array("#edit-submit"))
+     *   e.g. array("fillField", array("#name", "Smith"))
+     *   e.g. array("waitForJs", array("return jQuery.active == 0"))
      */
-    protected $pre;
+    protected $preSteps;
+
+    /**
+     * The sequence of steps to be run after the field has been filled.
+     *
+     * @var array
+     *   Array of steps. A step is an array where the first element is the
+     *   method to call and the 2nd element is an array of arguments to pass
+     *   to the method.
+     *
+     *   e.g. array("click", array("#edit-submit"))
+     *   e.g. array("fillField", array("#name", "Smith"))
+     *   e.g. array("waitForJs", array("return jQuery.active == 0"))
+     */
+    protected $postSteps;
 
     /**
      * The list of roles that will not be able to see this field and should not attempt to manipulate or fill it.
@@ -216,24 +237,47 @@ class Field
     }
 
     /**
-     * Gets the selector of any item to be clicked before this field is filled.
+     * Gets the sequence of steps to be run after this field is filled.
      *
-     * @return string
+     * @return array
+     *   Array of steps.
      */
-    public function getPre()
+    public function getPostSteps()
     {
-        return $this->pre;
+        return $this->postSteps;
     }
 
     /**
-     * Sets the selector of any item to be clicked before this field is filled.
+     * Sets the sequence of steps to be run after the field has been filled.
      *
-     * @param string $pre
-     *   The selector to be set.
+     * @param array $post
+     *   Array of steps. See $postSteps.
      */
-    public function setPre($pre)
+    public function setPostSteps($post)
     {
-        $this->pre = $pre;
+        $this->postSteps = $post;
+    }
+
+    /**
+     * Gets the sequence of steps to be run before this field is filled.
+     *
+     * @return array
+     *   Array of steps.
+     */
+    public function getPreSteps()
+    {
+        return $this->preSteps;
+    }
+
+    /**
+     * Sets the sequence of steps to be run before this field is filled.
+     *
+     * @param array $pre
+     *   Array of steps. See $preSteps.
+     */
+    public function setPreSteps($pre)
+    {
+        $this->preSteps = $pre;
     }
 
     /**
@@ -339,8 +383,19 @@ class Field
         if (isset($yaml['required']) && $yaml['required'] != 'false') {
             $field->setRequired(true);
         }
+
+        $preSteps = array();
         if (isset($yaml['pre'])) {
-            $field->setPre($yaml['pre']);
+            $preSteps[] = array('click', array($yaml['pre']));
+        }
+        if (isset($yaml['preSteps'])) {
+            $preSteps = array_merge($preSteps, $yaml['preSteps']);
+        }
+
+        $field->setPreSteps($preSteps);
+
+        if (isset($yaml['postSteps'])) {
+            $field->setPostSteps($yaml['postSteps']);
         }
         if (isset($yaml['skipRoles']) && is_array($yaml['skipRoles'])) {
             $field->setSkippedRoles($yaml['skipRoles']);
@@ -362,6 +417,12 @@ class Field
      *   An unkeyed array of field names.
      * @param Field[] $fields
      *   Global fields as derived from ContentTypeRegistryStorageInterface->loadGlobalFields().
+     *
+     * @return array
+     *   Collection of global fields.
+     *
+     * @throws ConfigurationException
+     *   If global field does not exist.
      */
     public static function parseGlobalFields($globals, $fields)
     {
@@ -398,12 +459,40 @@ class Field
             $value = $this->getTestData();
         }
 
-        // If we need to click something before filling the field, do so.
-        if (isset($this->pre)) {
-            $I->click($this->pre);
+        // Run any number of steps before filling the field.
+        if (isset($this->preSteps)) {
+            $this->executeSteps(
+                $I,
+                $this->preSteps
+            );
         }
 
         $this->getWidget()->fill($I, $value);
+
+        // Run any number of steps after filling the field.
+        if (isset($this->postSteps)) {
+            $this->executeSteps(
+                $I,
+                $this->postSteps
+            );
+        }
+    }
+
+    /**
+     * Execute a series of steps.
+     *
+     * @param Web $I
+     *   The WebInterface (like the actor) being used within the active test scenario.
+     * @param array $steps
+     *   An array is expected with the method to call on $I and the
+     *   arguments to pass.
+     */
+    protected function executeSteps($I, $steps)
+    {
+        foreach ($steps as $step) {
+            list($method, $args) = $step;
+            call_user_func_array(array($I, $method), $args);
+        }
     }
 
     /**
