@@ -59,6 +59,7 @@ abstract class Widget
         'Image'                                     => 'ImageWidget',
         'Link'                                      => 'LinkWidget',
         'Media file selector'                       => 'MediaWidget',
+        'Media browser'                             => 'MediaBrowserWidget',
         'Node module element'                       => 'TextWidget',
         'Poll choices'                              => 'PollChoicesWidget',
         'Poll module settings'                      => 'PollSettingsWidget',
