@@ -63,6 +63,7 @@ abstract class Widget
         'Media browser'                             => 'MediaBrowserWidget',
         'Media file selector'                       => 'MediaWidget',
         'Node module element'                       => 'TextWidget',
+        'Path module form elements'                 => 'PathWidget',
         'Poll choices'                              => 'PollChoicesWidget',
         'Poll module settings'                      => 'PollSettingsWidget',
         'Pop-up calendar'                           => 'PopUpCalendarWidget',
