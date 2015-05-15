@@ -59,6 +59,7 @@ abstract class Widget
         'Hierarchical Select'                       => 'HierarchicalWidget',
         'Image'                                     => 'ImageWidget',
         'Link'                                      => 'LinkWidget',
+        'Media browser'                             => 'MediaBrowserWidget',
         'Media file selector'                       => 'MediaWidget',
         'Node module element'                       => 'TextWidget',
         'Poll choices'                              => 'PollChoicesWidget',
