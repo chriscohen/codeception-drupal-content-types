@@ -58,6 +58,7 @@ abstract class Widget
         'Geocode from another field'                => 'GeoWidget',
         'Hierarchical Select'                       => 'HierarchicalWidget',
         'Image'                                     => 'ImageWidget',
+        'Language'                                  => 'LanguageWidget',
         'Link'                                      => 'LinkWidget',
         'Media browser'                             => 'MediaBrowserWidget',
         'Media file selector'                       => 'MediaWidget',
