@@ -56,6 +56,7 @@ abstract class Widget
         'Embedded'                                  => 'EmbeddedWidget',
         'File'                                      => 'FileWidget',
         'Geocode from another field'                => 'GeoWidget',
+        'Hierarchical Select'                       => 'HierarchicalWidget',
         'Image'                                     => 'ImageWidget',
         'Link'                                      => 'LinkWidget',
         'Media file selector'                       => 'MediaWidget',
