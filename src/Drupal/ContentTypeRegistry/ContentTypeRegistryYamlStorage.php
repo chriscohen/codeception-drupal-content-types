@@ -82,9 +82,11 @@ class ContentTypeRegistryYamlStorage implements ContentTypeRegistryStorageInterf
         $globalConfigFile = getcwd() . DIRECTORY_SEPARATOR . 'tests/contentTypes.yml';
 
         if (file_exists($suiteConfigFile)) {
-            $this->config = Yaml::parse($suiteConfigFile);
+            $yaml = file_get_contents($suiteConfigFile);
+            $this->config = Yaml::parse($yaml);
         } elseif (file_exists($globalConfigFile)) {
-            $this->config = Yaml::parse($globalConfigFile);
+            $yaml = file_get_contents($globalConfigFile);
+            $this->config = Yaml::parse($yaml);
         }
     }
 
