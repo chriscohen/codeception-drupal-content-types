@@ -74,6 +74,7 @@ abstract class Widget
         'Text area (multiple rows)'                 => 'TextAreaWidget',
         'Text field'                                => 'TextWidget',
         'Text area with a summary'                  => 'WysiwygWidget',
+        'Video'                                     => 'VideoWidget',
     );
 
     /**
