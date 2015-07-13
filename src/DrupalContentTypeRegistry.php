@@ -298,6 +298,6 @@ class DrupalContentTypeRegistry extends Module
      */
     public function seeDeleteNodeWasSuccessful($I, $nid)
     {
-        $I->see('has been deleted.', ".alert-success");
+        $I->see("has been deleted.", ".alert-success");
     }
 }
