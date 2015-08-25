@@ -58,6 +58,7 @@ GlobalFields:
         selector:       "#edit-title"
 ContentTypes:
     news:
+        entityType:   node
         humanName:    News
         machineName:  news
         fields:
@@ -102,6 +103,7 @@ values are the same as they would be if they were declared for the fields of a c
 Each content type should be keyed according to its machine name (although this is just a hint as machineName takes care
 of the actual naming, so you could give the content type any key you like).
 
+- **entityType** is the machine name of the Drupal entity type. Mostly node but other types can be used.
 - **humanName** is the way that the content type is named in the UI (and is case-sensitive).
 - **machineName** is the way that the content type is named to Drupal, and should match whatever is set in Drupal.
 - **fields** is a list of all of the fields on the content type, with their properties.
