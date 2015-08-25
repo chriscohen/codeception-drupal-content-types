@@ -245,6 +245,14 @@ the root tests directory and has a list of the suites it's supposed to run, but 
 the current suite is running. If some way of doing this within Codeception is developed in the future, this extra step
 can be dropped.
 
+## Entity types
+
+Mostly you will want to add fields and types for known entities such as users, taxonomy terms and nodes. But sometimes
+you will need to add further entity types, such as for custom entities you have defined. You will need to create a class
+that extends Codeception\Module\Drupal\ContentTypeRegistry\EntityTypes\EntityType and implements
+Codeception\Module\Drupal\ContentTypeRegistry\EntityTypes\EntityTypeInterface and then you can define the type name and
+also the page on which the "manage fields" is done for this entity type.
+
 ## Extras
 
 Sometimes, you will want to simulate the user clicking things on the node edit form that are not actually fields. This
