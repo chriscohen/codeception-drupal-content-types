@@ -214,7 +214,7 @@ class DrupalContentTypeRegistry extends Module
         );
         $I->dontSee(" ", ".messages.error");
 
-        return $this->grabLastCreatedNid($I);
+        return $I->grabLastCreatedNid($I);
     }
 
     /**
@@ -253,7 +253,7 @@ class DrupalContentTypeRegistry extends Module
      * @return mixed
      *   $nid from from node edit tab, or null if not found.
      */
-    protected function grabLastCreatedNid($I)
+    public function grabLastCreatedNid($I)
     {
         // Grab the node id from the Edit tab once the node has been saved.
         $edit_url = $I->grabAttributeFrom(Page::$nodeEditTabLinkSelector, 'href');
