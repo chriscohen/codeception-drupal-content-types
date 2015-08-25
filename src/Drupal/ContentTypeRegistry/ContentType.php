@@ -17,6 +17,13 @@ use Codeception\Util\WebInterface;
 class ContentType
 {
     /**
+     * The machine-readable entity type of this content type.
+     *
+     * @var
+     */
+    protected $entityType;
+
+    /**
      * The human-readable name of the content type.
      *
      * @var string
@@ -57,6 +64,26 @@ class ContentType
      * @var string
      */
     protected $submitSelector = '#edit-submit';
+
+    /**
+     * Get the entity type.
+     *
+     * @return string
+     */
+    public function getEntityType()
+    {
+        return $this->entityType;
+    }
+
+    /**
+     * Set the entity type.
+     *
+     * @param string $entityType
+     */
+    public function setEntityType($entityType)
+    {
+        $this->entityType = $entityType;
+    }
 
     /**
      * Get the content type human name.
@@ -245,6 +272,7 @@ class ContentType
         $contentType = new ContentType();
         $contentType->setHumanName($yaml['humanName']);
         $contentType->setMachineName($yaml['machineName']);
+        $contentType->setEntityType($yaml['entityType']);
 
         // Set all fields on this content type as defined in the yaml.
         if (isset($yaml['fields'])) {
