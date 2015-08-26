@@ -103,7 +103,8 @@ values are the same as they would be if they were declared for the fields of a c
 Each content type should be keyed according to its machine name (although this is just a hint as machineName takes care
 of the actual naming, so you could give the content type any key you like).
 
-- **entityType** is the machine name of the Drupal entity type. Mostly node but other types can be used.
+- **entityType** is the machine name of the Drupal entity type. Mostly node but other types can be used. "node" is
+  assumed unless something else is specified.
 - **humanName** is the way that the content type is named in the UI (and is case-sensitive).
 - **machineName** is the way that the content type is named to Drupal, and should match whatever is set in Drupal.
 - **fields** is a list of all of the fields on the content type, with their properties.
@@ -253,6 +254,49 @@ that extends Codeception\Module\Drupal\ContentTypeRegistry\EntityTypes\EntityTyp
 Codeception\Module\Drupal\ContentTypeRegistry\EntityTypes\EntityTypeInterface and then you can define the type name and
 also the page on which the "manage fields" is done for this entity type.
 
+### Adding new entity types
+
+If your site has a custom entity type that is not managed within this module's collection of entity types, you can
+create a custom class for it and specify it using the yaml config:
+
+```yaml
+EntityTypes:
+    banana: "Codeception\\MyTestSuite\\EntityTypes\\Banana"
+```
+
+Note that you will need to fully namespace your custom class and use the double backslash notation as shown in the
+example.
+
+Your custom class should extend EntityType and implement EntityTypeInterface. Mostly you can just copy an existing
+entity type subclass and adopt it to suit your needs:
+
+```php
+<?php
+/**
+ * @file
+ * Represents the banana entity type.
+ */
+
+namespace Codeception\MyTestSuite\EntityTypes;
+
+use Codeception\Module\Drupal\ContentTypeRegistry\EntityTypes\EntityType;
+use Codeception\Module\Drupal\ContentTypeRegistry\EntityTypes\EntityTypeInterface;
+
+class Banana extends EntityType implements EntityTypeInterface
+{
+    /**
+     * {@inheritdoc}
+     */
+    public function getManageFieldsUrl($bundle = '')
+    {
+        return 'admin/structure/fruit-types/manage/' . $this->getEntityType() . '/fields';
+    }
+}
+```
+
+Don't forget that you will need to make sure this class is loaded within the _bootstrap.php of your product using
+Codeception's autoloading system or by loading it manually with require_once or something.
+
 ## Extras
 
 Sometimes, you will want to simulate the user clicking things on the node edit form that are not actually fields. This
@@ -262,6 +306,7 @@ Here is an example:
 ```yaml
 ContentTypes:
     news:
+        entityType:   node
         humanName:    News
         machineName:  news
         fields:

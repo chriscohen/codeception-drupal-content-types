@@ -6,6 +6,7 @@
 
 namespace Codeception\Module\Drupal\ContentTypeRegistry;
 
+use Codeception\Module\Drupal\ContentTypeRegistry\EntityTypes\EntityType;
 use Symfony\Component\Yaml\Yaml;
 use Codeception\Exception\Configuration as ConfigurationException;
 use Codeception\Module\Drupal\ContentTypeRegistry\Fields\Field;
@@ -145,6 +146,31 @@ class ContentTypeRegistryYamlStorage implements ContentTypeRegistryStorageInterf
         }
 
         return $contentTypes;
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @throws ConfigurationException
+     */
+    public function loadEntityTypeAdditions()
+    {
+        // Make sure to initialise by reading the data source.
+        if (!$this->isInitialised()) {
+            $this->parseDataSource();
+        }
+
+        if (empty($this->config)) {
+            throw new ConfigurationException("Configuration file is invalid");
+        }
+
+        // Try to find further EntityTypes in the contentTypes.yml and register
+        // them as further entity types.
+        if (isset($this->config['EntityTypes'])) {
+            foreach ($this->config['EntityTypes'] as $entityTypeKey => $entityTypeAddition) {
+                EntityType::$entityTypeAdditions[$entityTypeKey] = $entityTypeAddition;
+            }
+        }
     }
 
     /**

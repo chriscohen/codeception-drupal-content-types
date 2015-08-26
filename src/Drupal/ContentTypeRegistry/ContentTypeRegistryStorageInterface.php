@@ -26,6 +26,14 @@ interface ContentTypeRegistryStorageInterface
     public function loadGlobalFields();
 
     /**
+     * Populate the EntityType class with extra entity types from the
+     * contentTypes.yml file. This will not return anything, but will make
+     * the EntityType class aware of the extra entity types so that they can be
+     * passed to the EntityType::create() method when creating entities.
+     */
+    public function loadEntityTypeAdditions();
+
+    /**
      * Determine whether the config has been parsed from the data source yet.
      *
      * When the class is first created, the data source must be read. This might be a file or some other source. We do

@@ -6,6 +6,7 @@
 
 namespace Codeception\Module\Drupal\ContentTypeRegistry;
 
+use Codeception\Module\Drupal\ContentTypeRegistry\EntityTypes\EntityType;
 use Codeception\Module\Drupal\ContentTypeRegistry\Fields\Field;
 use Codeception\Util\WebInterface;
 
@@ -19,7 +20,7 @@ class ContentType
     /**
      * The machine-readable entity type of this content type.
      *
-     * @var
+     * @var EntityType
      */
     protected $entityType;
 
@@ -68,7 +69,7 @@ class ContentType
     /**
      * Get the entity type.
      *
-     * @return string
+     * @return EntityType
      */
     public function getEntityType()
     {
@@ -78,11 +79,14 @@ class ContentType
     /**
      * Set the entity type.
      *
+     * This will create a new EntityType subclass by using the shortname in the
+     * parameter provided.
+     *
      * @param string $entityType
      */
     public function setEntityType($entityType)
     {
-        $this->entityType = $entityType;
+        $this->entityType = EntityType::create($entityType);
     }
 
     /**
@@ -272,12 +276,19 @@ class ContentType
         $contentType = new ContentType();
         $contentType->setHumanName($yaml['humanName']);
         $contentType->setMachineName($yaml['machineName']);
-        $contentType->setEntityType($yaml['entityType']);
+
+        // Set the entity type.
+        if (isset($yaml['entityType'])) {
+            $contentType->setEntityType($yaml['entityType']);
+        } else {
+            // Use node as our default if no entity type is set.
+            $contentType->setEntityType('node');
+        }
+
 
         // Set all fields on this content type as defined in the yaml.
         if (isset($yaml['fields'])) {
             foreach ($yaml['fields'] as $key => $fieldData) {
-
                 if ($key == 'globals') {
                     // Handle the list of global fields specially.
                     $fields = Field::parseGlobalFields($fieldData, $fields);
