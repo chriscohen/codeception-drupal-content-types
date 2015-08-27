@@ -60,6 +60,17 @@ class Field
     protected $pre;
 
     /**
+     * Whether the widget name is displayed on the "manage fields" page.
+     *
+     * Some fields, such as node title, have no widget defined, so this shows
+     * an empty cell in the "manage fields" table, even though the widget itself
+     * is present when you edit a node.
+     *
+     * @var bool
+     */
+    protected $widgetNameVisible;
+
+    /**
      * The list of roles that will not be able to see this field and should not attempt to manipulate or fill it.
      *
      * @var string[]
@@ -269,6 +280,26 @@ class Field
     }
 
     /**
+     * Gets whether the widget name is visible for this field.
+     *
+     * @return bool
+     */
+    public function getWidgetNameVisible()
+    {
+        return $this->widgetNameVisible;
+    }
+
+    /**
+     * Sets whether the widget name is visible for this field.
+     *
+     * @param bool $widgetNameVisible
+     */
+    public function setWidgetNameVisible($widgetNameVisible)
+    {
+        $this->widgetNameVisible = $widgetNameVisible;
+    }
+
+    /**
      * Construct a Field by parsing yaml configuration.
      *
      * @param array $yaml
@@ -306,6 +337,14 @@ class Field
         }
         if (isset($yaml['testData'])) {
             $field->setTestData($yaml['testData']);
+        }
+
+        // Only set the widgetNameVisible property to false if the YAML value is
+        // set and also it's specifically set to false.
+        if (isset($yaml['widgetNameVisible']) && $yaml['widgetNameVisible'] == 'false') {
+            $field->setWidgetNameVisible(false);
+        } else {
+            $field->setWidgetNameVisible(true);
         }
 
         return $field;

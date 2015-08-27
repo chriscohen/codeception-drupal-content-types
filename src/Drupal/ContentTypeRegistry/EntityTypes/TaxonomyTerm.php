@@ -43,6 +43,7 @@ class TaxonomyTerm extends EntityType implements EntityTypeInterface
         $field->setLabel('Name');
         $field->setMachine('name');
         $field->setType('Term name textfield');
+        $field->setWidgetNameVisible(false);
 
         return array('Name' => $field);
     }

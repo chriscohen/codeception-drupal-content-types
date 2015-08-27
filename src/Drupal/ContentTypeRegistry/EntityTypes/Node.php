@@ -43,6 +43,7 @@ class Node extends EntityType implements EntityTypeInterface
         $field->setLabel('Title');
         $field->setMachine('title');
         $field->setType('Node module element');
+        $field->setWidgetNameVisible(false);
 
         return array('Title' => $field);
     }

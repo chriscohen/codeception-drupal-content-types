@@ -43,11 +43,13 @@ class File extends EntityType implements EntityTypeInterface
         $fileNameField->setLabel('File name');
         $fileNameField->setMachine('filename');
         $fileNameField->setType('File name');
+        $fileNameField->setWidgetNameVisible(false);
 
         $filePreviewField = new Field();
         $filePreviewField->setLabel('File');
         $filePreviewField->setMachine('preview');
         $filePreviewField->setType('File preview');
+        $filePreviewField->setWidgetNameVisible(false);
 
         return array(
             'File name' => $fileNameField,
