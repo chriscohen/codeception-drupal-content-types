@@ -51,11 +51,6 @@ GlobalFields:
         selector:       "#edit-body-und-0-value"
         widget:         Text area with a summary
         required:       true
-    title:
-        machineName:    title
-        label:          Title
-        type:           Node module element
-        selector:       "#edit-title"
 ContentTypes:
     news:
         entityType:   node
@@ -63,7 +58,6 @@ ContentTypes:
         machineName:  news
         fields:
             globals:
-                - title
                 - body
             field_image:
                 machineName:    field_image
@@ -110,20 +104,25 @@ of the actual naming, so you could give the content type any key you like).
 - **fields** is a list of all of the fields on the content type, with their properties.
   - **globals** is a simple list of the "reused" fields on this type. If your content type has a field that simply
     reuses exactly a field from another content type, set it up in GlobalFields (above) and just reference it here. An
-    exception would be if it had a slight difference, such as when you set a title, but you change its label from
-    "Title" to something else. In this case, it wouldn't be able to be a global field.
+    exception would be if it had a slight difference, such as when you set the same field, but you change its label from
+    "Foo" to something else. In this case, it wouldn't be able to be a global field.
   - **properties**: fields can have the following properties...
     - **machineName** is the machine name of the field as seen by Drupal. In general these will start with field_ but
-      there might be exceptions such as for title and body fields.
+      there might be exceptions such as for body fields.
     - **label** is the human name (label) for this field, and should match exactly what is set in the UI, including case
       sensitivity.
     - **type** is the field type as set in the Drupal UI, on the "manage fields" page. Case-sensitive.
     - **selector** is the CSS or XPath selector used to pick out this field's element where it appears on a node create
       or edit page. Note that this is usually optional and if omitted, will be derived from the field name, which is
       usually enough.
-    - **widget** is the name of the widget for this field as set in the Druapl UI, on the "manage fields" page. Case-
-      sensitive. Some fields don't have widgets (such as title) so just leave it out. There is a list of field types
-      that are exempted from having a widget, so the ContentTypeRegistry will be aware of this.
+    - **widget** is the name of the widget for this field as set in the Drupal UI, on the "manage fields" page. Case-
+      sensitive. Some fields don't have widgets so just leave it out. Some fields have widgets on the node edit page,
+      but have nothing listed on the "manage fields" page. If this is the case, set the widget here, but use
+      **widgetNameVisible** below to indicate it's not visible on "manage fields". In these cases you will have to
+      determine the widget for yourself. For example, the node title wigdet is a "Text field" widget even though it
+      doesn't say that on the "manage fields" page.
+    - **widgetNameVisible** allows you to specify that on the "manage fields" page, this row has nothing in the "widget"
+      column. This applies to things like title fields etc.
     - **required** can be set to "true" if the field is required. If it's not, just leave this out altogether.
     - **pre** can be used to specify an XPath selector for an element that should be clicked before the field is filled.
       If this is set, this element will be clicked and then the field will be filled. If not set, nothing will be
@@ -153,6 +152,24 @@ Example:
 ```yaml
 testData: "special::randomText"
 ```
+
+## Standard default required fields
+
+Each entity type has a set of standard fields that always appear on that entity type. For example, there is always a
+"title" field on the node entity and you have to have it.
+
+Entity types are already aware of what their default fields are, because they are expressed in the
+EntityType::getRequiredFields() method which is provided by each EntityType object.
+
+This means that as long as it's a required field, you don't need to mention it in contentTypes.yml because they are
+already defined. You can mention them in contentTypes.yml if you want to, and those that you mention in there will
+override the defaults.
+
+### Implementing your own standard default required fields
+
+If you have a situation where you have a custom Drupal entity and it has its own required fields, you should define your
+own EntityType subclass and implement the EntityType::getRequiredFields() method to define the required fields there.
+Anything using your custom entity type in contentTypes.yml will automatically pick up these and look for them.
 
 ## Specific widget types
 
@@ -311,7 +328,6 @@ ContentTypes:
         machineName:  news
         fields:
             globals:
-                - title
                 - body
             field_image:
                 machineName:    field_image
