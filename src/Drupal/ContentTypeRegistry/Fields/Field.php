@@ -75,25 +75,6 @@ class Field
     protected $testData;
 
     /**
-     * List of fields with no widget.
-     *
-     * If a field type is listed here, fields of this type on the 'manage
-     * fields' page will be able to get away with having a blank widget.
-     *
-     * @var array
-     */
-    public static $fieldsWithNoWidget = array(
-        'Fieldset containing scheduling settings',
-        'Meta tag module form elements.',
-        'Node module element',
-        'Path module form elements',
-        'Poll choices',
-        'Poll module settings',
-        'Redirect module form elements',
-        'XML sitemap module element',
-    );
-
-    /**
      * Constructor.
      *
      * @param string $machine
@@ -306,7 +287,7 @@ class Field
      */
     public function hasWidget()
     {
-        return !in_array($this->getType(), static::$fieldsWithNoWidget);
+        return !empty($this->widget);
     }
 
     /**
