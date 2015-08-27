@@ -6,6 +6,8 @@
 
 namespace Codeception\Module\Drupal\ContentTypeRegistry\EntityTypes;
 
+use Codeception\Module\Drupal\ContentTypeRegistry\Fields\Field;
+
 /**
  * Interface EntityTypeInterface
  *
@@ -30,4 +32,14 @@ interface EntityTypeInterface
      * @return string
      */
     public function getEntityType();
+
+    /**
+     * Get collection of fields that are required on this entity type.
+     *
+     * @return Field[]
+     *   An array of Field objects representing fields that are required on this
+     *   entity type. This might be an empty array because some entity types do
+     *   not have required fields.
+     */
+    public function getRequiredFields();
 }

@@ -15,4 +15,13 @@ class Flag extends EntityType implements EntityTypeInterface
     {
         return 'admin/structure/flags/manage/' . $this->getEntityType() . '/fields';
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getRequiredFields()
+    {
+        // There are no required fields for flags.
+        return array();
+    }
 }

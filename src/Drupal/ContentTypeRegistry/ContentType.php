@@ -285,6 +285,10 @@ class ContentType
             $contentType->setEntityType('node');
         }
 
+        // Set all the required fields for this content type.
+        foreach ($contentType->getEntityType()->getRequiredFields() as $field) {
+            $contentType->setField($field);
+        }
 
         // Set all fields on this content type as defined in the yaml.
         if (isset($yaml['fields'])) {
