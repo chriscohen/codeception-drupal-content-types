@@ -13,6 +13,14 @@ class TaxonomyTerm extends EntityType implements EntityTypeInterface
     /**
      * {@inheritdoc}
      */
+    public function getEntityType()
+    {
+        return 'taxonomyTerm';
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function getTypesUrl($bundle = '')
     {
         return 'admin/structure/taxonomy';

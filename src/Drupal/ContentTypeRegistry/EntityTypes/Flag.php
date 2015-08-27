@@ -11,6 +11,14 @@ class Flag extends EntityType implements EntityTypeInterface
     /**
      * {@inheritdoc}
      */
+    public function getEntityType()
+    {
+        return 'flag';
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function getTypesUrl($bundle = '')
     {
         return 'admin/structure/flags';

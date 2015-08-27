@@ -10,6 +10,14 @@ class User extends EntityType implements EntityTypeInterface
 {
     /**
      * {@inheritdoc}
+     */
+    public function getEntityType()
+    {
+        return 'user';
+    }
+
+    /**
+     * {@inheritdoc}
      *
      * Do not return anything because there is no 'user types' page in Drupal.
      */

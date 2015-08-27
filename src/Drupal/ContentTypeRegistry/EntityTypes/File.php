@@ -13,6 +13,14 @@ class File extends EntityType implements EntityTypeInterface
     /**
      * {@inheritdoc}
      */
+    public function getEntityType()
+    {
+        return 'file';
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function getTypesUrl($bundle = '')
     {
         return 'admin/structure/file-types';
