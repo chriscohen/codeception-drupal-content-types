@@ -13,6 +13,14 @@ class File extends EntityType implements EntityTypeInterface
     /**
      * {@inheritdoc}
      */
+    public function getTypesUrl($bundle = '')
+    {
+        return 'admin/structure/file-types';
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function getManageFieldsUrl($bundle = '')
     {
         return 'admin/structure/file-types/manage/' . $this->getEntityType() . '/fields';

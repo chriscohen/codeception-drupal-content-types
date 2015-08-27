@@ -16,6 +16,19 @@ use Codeception\Module\Drupal\ContentTypeRegistry\Fields\Field;
 interface EntityTypeInterface
 {
     /**
+     * Get the URL used for the list of bundles on this entity type.
+     *
+     * For example, on the node entity type, this would be admin/structure/types
+     *
+     * @param string $bundle
+     *   The bundle for which to get the URL. Some entity types do not have any
+     *   bundles, in which case the default of '' (empty string) can be used.
+     *
+     * @return string
+     */
+    public function getTypesUrl($bundle = '');
+
+    /**
      * Get the URL used for the "manage fields" page on this entity type.
      *
      * @param string $bundle

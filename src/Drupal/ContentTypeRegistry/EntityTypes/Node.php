@@ -13,6 +13,14 @@ class Node extends EntityType implements EntityTypeInterface
     /**
      * {@inheritdoc}
      */
+    public function getTypesUrl($bundle = '')
+    {
+        return 'admin/structure/types';
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function getManageFieldsUrl($bundle = '')
     {
         return 'admin/structure/types/manage/' . $this->getEntityType() . '/fields';
