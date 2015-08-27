@@ -33,4 +33,12 @@ class User extends EntityType implements EntityTypeInterface
     {
         return 'admin/config/people/accounts/fields';
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getRequiredFields()
+    {
+        return array();
+    }
 }
