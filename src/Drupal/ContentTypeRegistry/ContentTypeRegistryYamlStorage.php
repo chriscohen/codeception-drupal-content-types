@@ -55,6 +55,9 @@ class ContentTypeRegistryYamlStorage implements ContentTypeRegistryStorageInterf
         if (empty(static::$contentTypes)) {
             static::$contentTypes = $this->loadContentTypes();
         }
+        if (empty(EntityType::$entityTypeAdditions)) {
+            $this->loadEntityTypeAdditions();
+        }
     }
 
     /**
