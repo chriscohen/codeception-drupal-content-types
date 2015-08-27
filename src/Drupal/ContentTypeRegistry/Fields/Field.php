@@ -75,28 +75,6 @@ class Field
     protected $testData;
 
     /**
-     * Constructor.
-     *
-     * @param string $machine
-     * @param string $label
-     * @param string $type
-     * @param string $selector
-     * @param string $widget
-     * @param bool $required
-     */
-    public function __construct($machine = '', $label = '', $type = '', $selector = '', $widget = '', $required = false)
-    {
-        $this->machine = $machine;
-        $this->label = $label;
-        $this->type = $type;
-        $this->selector = $selector;
-        $this->widget = $widget;
-
-        // The title field is always required regardless.
-        $this->required = $label == 'Title' ? true : $required;
-    }
-
-    /**
      * Gets the field's machine name.
      *
      * @return string
