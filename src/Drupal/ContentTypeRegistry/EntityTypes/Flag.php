@@ -29,7 +29,7 @@ class Flag extends EntityType implements EntityTypeInterface
      */
     public function getManageFieldsUrl($bundle = '')
     {
-        return 'admin/structure/flags/manage/' . $this->getEntityType() . '/fields';
+        return 'admin/structure/flags/manage/' . $bundle . '/fields';
     }
 
     /**

@@ -31,7 +31,7 @@ class TaxonomyTerm extends EntityType implements EntityTypeInterface
      */
     public function getManageFieldsUrl($bundle = '')
     {
-        return 'admin/structure/types/taxonomy/' . $this->getEntityType() . '/fields';
+        return 'admin/structure/types/taxonomy/' . $bundle . '/fields';
     }
 
     /**

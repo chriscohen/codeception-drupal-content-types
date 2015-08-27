@@ -31,7 +31,7 @@ class Node extends EntityType implements EntityTypeInterface
      */
     public function getManageFieldsUrl($bundle = '')
     {
-        return 'admin/structure/types/manage/' . $this->getEntityType() . '/fields';
+        return 'admin/structure/types/manage/' . $bundle . '/fields';
     }
 
     /**

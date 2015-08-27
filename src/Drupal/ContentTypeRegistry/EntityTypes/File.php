@@ -31,7 +31,7 @@ class File extends EntityType implements EntityTypeInterface
      */
     public function getManageFieldsUrl($bundle = '')
     {
-        return 'admin/structure/file-types/manage/' . $this->getEntityType() . '/fields';
+        return 'admin/structure/file-types/manage/' . $bundle . '/fields';
     }
 
     /**
