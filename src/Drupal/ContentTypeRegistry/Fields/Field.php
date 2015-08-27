@@ -321,7 +321,12 @@ class Field
         }
         if (isset($yaml['type'])) {
             $field->setType($yaml['type']);
-            $field->setWidget(Widget::create($yaml, $field));
+
+            // Only set a widget if one was defined because some fields don't
+            // have anything visible to the user on the edit form.
+            if (isset($yaml['widget'])) {
+                $field->setWidget(Widget::create($yaml, $field));
+            }
         }
         if (isset($yaml['selector'])) {
             $field->getWidget()->setSelector($yaml['selector']);
