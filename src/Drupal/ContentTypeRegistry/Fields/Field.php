@@ -346,7 +346,7 @@ class Field
 
         // Only set the widgetNameVisible property to false if the YAML value is
         // set and also it's specifically set to false.
-        if (isset($yaml['widgetNameVisible']) && $yaml['widgetNameVisible'] == false) {
+        if (isset($yaml['widgetNameVisible']) && $yaml['widgetNameVisible'] === false) {
             $field->setWidgetNameVisible(false);
         } else {
             $field->setWidgetNameVisible(true);
