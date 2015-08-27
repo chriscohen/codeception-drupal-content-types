@@ -24,7 +24,10 @@ interface EntityTypeInterface
      *   The bundle for which to get the URL. Some entity types do not have any
      *   bundles, in which case the default of '' (empty string) can be used.
      *
-     * @return string
+     * @return string|null
+     *   Usually returns the URL for the bundle list page for this entity type,
+     *   but if there isn't one (such as the case with the user entity type),
+     *   it can return null.
      */
     public function getTypesUrl($bundle = '');
 
