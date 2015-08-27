@@ -362,6 +362,11 @@ class Field
      *   An unkeyed array of field names.
      * @param Field[] $fields
      *   Global fields as derived from ContentTypeRegistryStorageInterface->loadGlobalFields().
+     *
+     * @return Field[]
+     *   A collection of global fields.
+     *
+     * @throws ConfigurationException
      */
     public static function parseGlobalFields($globals, $fields)
     {
