@@ -56,4 +56,14 @@ class TaxonomyTerm extends EntityType implements EntityTypeInterface
             'Description' => $fieldDescription,
         );
     }
+
+    /**
+     * {@inheritdoc}
+     *
+     * This entity type does not show machine name on the types page.
+     */
+    public function machineNameOnTypesUrl()
+    {
+        return false;
+    }
 }
