@@ -54,4 +54,16 @@ interface EntityTypeInterface
      *   not have required fields.
      */
     public function getRequiredFields();
+
+    /**
+     * Whether the machine name of this type is displayed on the types page.
+     *
+     * For example, when you go to the node types page, the machine name of each
+     * node type is shown, but when you go to the file types page, it is not, so
+     * this function allows tests to determine if they are expecting to see the
+     * machine name on the types page or not.
+     *
+     * @return bool
+     */
+    public function machineNameOnTypesUrl();
 }

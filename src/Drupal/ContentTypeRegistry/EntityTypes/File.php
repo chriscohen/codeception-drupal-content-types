@@ -56,4 +56,14 @@ class File extends EntityType implements EntityTypeInterface
             'File' => $filePreviewField,
         );
     }
+
+    /**
+     * {@inheritdoc}
+     *
+     * This entity type does not show the machine name on the types page.
+     */
+    public function machineNameOnTypesUrl()
+    {
+        return false;
+    }
 }

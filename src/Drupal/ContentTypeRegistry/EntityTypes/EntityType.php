@@ -108,4 +108,16 @@ abstract class EntityType implements EntityTypeInterface
             );
         }
     }
+
+    /**
+     * {@inheritdoc}
+     *
+     * Default implementation is that the machine name IS on the types page.
+     * EntityType subclasses only need to override this if their types page does
+     * not have a machine name on it.
+     */
+    public function machineNameOnTypesUrl()
+    {
+        return true;
+    }
 }
