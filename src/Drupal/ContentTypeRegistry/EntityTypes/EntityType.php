@@ -59,6 +59,16 @@ abstract class EntityType implements EntityTypeInterface
     public static $entityTypeAdditions = array();
 
     /**
+     * {@inheritdoc}
+     *
+     * No implementation here but subclasses must implement this themselves.
+     */
+    public function getTypesUrl()
+    {
+        return '';
+    }
+
+    /**
      * Generate a new EntityType subclass based on the provided shortname.
      *
      * @param string $shortName
@@ -70,18 +80,32 @@ abstract class EntityType implements EntityTypeInterface
     public static function create($shortName)
     {
         // Check if we have this entity type registered in the base set.
+        $className = static::getClassName($shortName);
+
+        /** @var EntityType $className */
+        $output = new $className();
+        return $output;
+    }
+
+    /**
+     * Given an entity type shortName, get the full namespaced class.
+     *
+     * @param string $shortName
+     *   The shortName for the entity type such as node or taxonomyTerm.
+     *
+     * @return string
+     *   The full namespaced class for this EntityType subclass.
+     */
+    protected static function getClassName($shortName)
+    {
         if (isset(static::$entityTypes[$shortName])) {
-            $className = 'Codeception\\Module\\Drupal\\ContentTypeRegistry\\EntityTypes\\' . $shortName;
+            return 'Codeception\\Module\\Drupal\\ContentTypeRegistry\\EntityTypes\\' . $shortName;
         } elseif (isset(static::$entityTypeAdditions[$shortName])) {
-            $className = static::$entityTypeAdditions[$shortName];
+            return static::$entityTypeAdditions[$shortName];
         } else {
             throw new InvalidArgumentException(
                 'EntityType class could not be retrieved for the ' . $shortName . ' entity type'
             );
         }
-
-        /** @var EntityType $className */
-        $output = new $className();
-        return $output;
     }
 }

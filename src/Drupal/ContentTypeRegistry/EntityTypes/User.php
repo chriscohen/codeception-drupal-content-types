@@ -21,7 +21,7 @@ class User extends EntityType implements EntityTypeInterface
      *
      * Do not return anything because there is no 'user types' page in Drupal.
      */
-    public function getTypesUrl($bundle = '')
+    public function getTypesUrl()
     {
         return null;
     }

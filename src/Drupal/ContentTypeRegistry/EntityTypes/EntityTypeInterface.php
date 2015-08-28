@@ -20,16 +20,12 @@ interface EntityTypeInterface
      *
      * For example, on the node entity type, this would be admin/structure/types
      *
-     * @param string $bundle
-     *   The bundle for which to get the URL. Some entity types do not have any
-     *   bundles, in which case the default of '' (empty string) can be used.
-     *
      * @return string|null
      *   Usually returns the URL for the bundle list page for this entity type,
      *   but if there isn't one (such as the case with the user entity type),
      *   it can return null.
      */
-    public function getTypesUrl($bundle = '');
+    public function getTypesUrl();
 
     /**
      * Get the URL used for the "manage fields" page on this entity type.
