@@ -39,12 +39,21 @@ class TaxonomyTerm extends EntityType implements EntityTypeInterface
      */
     public function getRequiredFields()
     {
-        $field = new Field();
-        $field->setLabel('Name');
-        $field->setMachine('name');
-        $field->setType('Term name textfield');
-        $field->setWidgetNameVisible(false);
+        $fieldName = new Field();
+        $fieldName->setLabel('Name');
+        $fieldName->setMachine('name');
+        $fieldName->setType('Term name textfield');
+        $fieldName->setWidgetNameVisible(false);
 
-        return array('Name' => $field);
+        $fieldDescription = new Field();
+        $fieldDescription->setLabel('Description');
+        $fieldDescription->setMachine('description');
+        $fieldDescription->setType('Term description textarea');
+        $fieldDescription->setWidgetNameVisible(false);
+
+        return array(
+            'Name' => $fieldName,
+            'Description' => $fieldDescription,
+        );
     }
 }
