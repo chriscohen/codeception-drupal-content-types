@@ -40,11 +40,12 @@ abstract class EntityType implements EntityTypeInterface
      * @var array
      */
     public static $entityTypes = array(
-        'node' => 'Node',
-        'taxonomyTerm' => 'TaxonomyTerm',
-        'file' => 'File',
-        'flag' => 'Flag',
-        'user' => 'User',
+        'asset'         => 'Asset',
+        'file'          => 'File',
+        'flag'          => 'Flag',
+        'node'          => 'Node',
+        'taxonomyTerm'  => 'TaxonomyTerm',
+        'user'          => 'User',
     );
 
     /**
