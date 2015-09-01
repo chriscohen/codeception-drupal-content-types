@@ -35,6 +35,10 @@ modules:
         - DrupalContentTypeRegistry
 ```
 
+## Configuration
+
+None.
+
 ## contentTypes.yml
 
 Put a contentTypes.yml at your test root (unless you want a specific contentTypes.yml for each suite, in which case, see
@@ -351,3 +355,61 @@ ContentTypes:
 As you can see, these slot alongside fields. You will normally have to set a selector manually for these because the
 naming conventions that apply to fields do not apply here. You can still use the widget property to tell this module
 what type of form widget is being used.
+
+## Node creation/deletion
+During createNode/deleteNode the success status is checked by looking for the standard Drupal messages in
+an element e.g. `.messages`
+
+Some themes have different selectors or may not display those messages at all. If that is the case, you can
+implement `seeCreateNodeWasSuccessful()` and/or `seeDeleteNodeWasSuccessful()` in your suite helper.
+
+e.g.
+
+```php
+
+class AcceptanceHelper extends \Codeception\Module
+{
+    /**
+     * Check a node creation was successful.
+     *
+     * This overrides the default since the css selectors are different in
+     * this site's theme.
+     *
+     * @see DrupalContentTypeRegistry::seeCreateNodeWasSuccessful()
+     *
+     * @param WebInterface $I
+     *   A reference to the Actor being used.
+     * @param string $msg
+     *   The success message that should be displayed by Drupal.
+     * @param int $nid
+     *   The created nid.
+     */
+    public function seeCreateNodeWasSuccessful($I, $msg, $nid)
+    {
+        $I->see($msg, ".messages");
+        $I->dontSee(" ", ".messages.error");
+    }
+
+    /**
+     * Check a node deletion was successful.
+     *
+     * This overrides the default since this site redirects to the
+     * homepage on node deletion and does not show a message. We
+     * therefore do a check by editing the node and make sure it's
+     * not found.
+     *
+     * @see DrupalContentTypeRegistry::seeDeleteNodeWasSuccessful()
+     *
+     * @param AuthenticatedSteps $I
+     *   A reference to the Actor being used.
+     * @param int $nid
+     *   The deleted nid.
+     */
+    public function seeDeleteNodeWasSuccessful($I, $nid)
+    {
+        $I->amOnPage(NodePage::route($nid, true));
+        $I->see("we can't find this page", "h1");
+    }
+}
+
+```
