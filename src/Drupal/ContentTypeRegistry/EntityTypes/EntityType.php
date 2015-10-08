@@ -99,7 +99,7 @@ abstract class EntityType implements EntityTypeInterface
     protected static function getClassName($shortName)
     {
         if (isset(static::$entityTypes[$shortName])) {
-            return 'Codeception\\Module\\Drupal\\ContentTypeRegistry\\EntityTypes\\' . $shortName;
+            return 'Codeception\\Module\\Drupal\\ContentTypeRegistry\\EntityTypes\\' . static::$entityTypes[$shortName];
         } elseif (isset(static::$entityTypeAdditions[$shortName])) {
             return static::$entityTypeAdditions[$shortName];
         } else {
