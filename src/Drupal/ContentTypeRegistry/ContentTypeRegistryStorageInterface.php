@@ -26,6 +26,12 @@ interface ContentTypeRegistryStorageInterface
     public function loadGlobalFields();
 
     /**
+     * @return Field[]
+     *   Array of Field objects.
+     */
+    public function loadGlobalExtras();
+
+    /**
      * Populate the EntityType class with extra entity types from the
      * contentTypes.yml file. This will not return anything, but will make
      * the EntityType class aware of the extra entity types so that they can be
@@ -89,4 +95,23 @@ interface ContentTypeRegistryStorageInterface
      *   An array of all the Field objects.
      */
     public function getGlobalFields();
+
+    /**
+     * Get a global extra by machine name.
+     *
+     * @param string $extra
+     *   The machine name of the global extra to be retrieved.
+     *
+     * @return Field|null
+     *   The extra that was specified, or null if not found.
+     */
+    public function getGlobalExtra($extra);
+
+    /**
+     * Get all global extras.
+     *
+     * @return Field[]
+     *   An array of all the extras, as Field objects.
+     */
+    public function getGlobalExtras();
 }

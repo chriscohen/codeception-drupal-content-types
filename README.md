@@ -85,6 +85,11 @@ ContentTypes:
                     - grumpy
                     - happy
                     - wacky
+                preSteps:
+                    - ["click", ["#button"]]
+                    - ["fillField", ["#the-field", "the-value"]]
+                postSteps:
+                    - ["waitForJs", ["return jQuery.active == 0;"]]
         submit: "#edit-submit-me-please"
 ```
 
@@ -96,6 +101,12 @@ useful for things like title and body fields, to save you having to redefine the
 GlobalFields are keyed by machine name (this should be the same name as the machine name of the Drupal field) and the
 values are the same as they would be if they were declared for the fields of a content type (see below).
 
+### GlobalExtras ###
+
+As with GlobalFields above, you can define extras that will be used across all of the content types on the site. This
+is useful if you always want to fill out the published status of a node no matter what type it is, for example. See the
+"extras" section below for more.
+
 ### ContentTypes
 
 Each content type should be keyed according to its machine name (although this is just a hint as machineName takes care
@@ -106,7 +117,7 @@ of the actual naming, so you could give the content type any key you like).
 - **humanName** is the way that the content type is named in the UI (and is case-sensitive).
 - **machineName** is the way that the content type is named to Drupal, and should match whatever is set in Drupal.
 - **fields** is a list of all of the fields on the content type, with their properties.
-  - **globals** is a simple list of the "reused" fields on this type. If your content type has a field that simply
+  - **globalFields** is a simple list of the "reused" fields on this type. If your content type has a field that simply
     reuses exactly a field from another content type, set it up in GlobalFields (above) and just reference it here. An
     exception would be if it had a slight difference, such as when you set the same field, but you change its label from
     "Foo" to something else. In this case, it wouldn't be able to be a global field.
@@ -138,8 +149,17 @@ of the actual naming, so you could give the content type any key you like).
       with test data and this is the data that will be used. Note that unless the field is mandatory and Drupal provides
       no default value for the field, testData can be left out of the yaml. If an array of values if provided, one can
       be chosen at random by the Field class. Special values can also be used here. See 'special values' below.
+    - **preSteps** optional steps to run before filling the field. This is an extension to the **pre** option, but any
+      method can be run, not just click. The format is a two element array. The first element is the method name and the
+      second element is an array of arguments to pass to the method. e.g. `["checkOption", ["#checkbox-name"]]` will
+      call `$I->checkOption("#checkbox-name")` prior to filling the field.
+    - **postSteps** optional steps to run after filling a field. For example,
+      `["waitForJs", ["return jQuery.active == 0;"]]` will wait for ajax calls to complete after field is filled before
+       continuing.
 - **extras** is a list of all extras (elements to interact with on the node edit form) that aren't fields in their own
   right. See below for more.
+  - **globalExtras** is a list of the "reused" extras on this type. This works the same as globalFields but with things
+    that are on the node form that are not actually fields.
 - **submit** is the CSS or XPath used to find the submit button on the node add or edit form for this content type. The
   Drupal default is "#edit-submit" and this can be omitted if you're using the default on your site.
 
