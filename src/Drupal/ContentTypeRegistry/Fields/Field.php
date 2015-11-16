@@ -328,7 +328,7 @@ class Field
                 $field->setWidget(Widget::create($yaml, $field));
             }
         }
-        if (isset($yaml['selector'])) {
+        if (isset($yaml['selector']) && $field->getWidget()) {
             $field->getWidget()->setSelector($yaml['selector']);
         }
         if (isset($yaml['required']) && $yaml['required'] != 'false') {
