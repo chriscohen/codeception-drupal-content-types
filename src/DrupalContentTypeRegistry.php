@@ -210,7 +210,11 @@ class DrupalContentTypeRegistry extends Module
             $title
         );
 
-        return $I->grabLastCreatedNid($I);
+        $nid = $I->grabLastCreatedNid($I);
+
+        $I->seeCreateNodeWasSuccessful($I, $msg, $nid);
+
+        return $nid;
     }
 
     /**
