@@ -62,6 +62,7 @@ abstract class Widget
         'Link'                                      => 'LinkWidget',
         'Media browser'                             => 'MediaBrowserWidget',
         'Media file selector'                       => 'MediaWidget',
+        'Media browser'                             => 'MediaBrowserWidget',
         'Node module element'                       => 'TextWidget',
         'OG reference'                              => 'OgReferenceWidget',
         'Path module form elements'                 => 'PathWidget',

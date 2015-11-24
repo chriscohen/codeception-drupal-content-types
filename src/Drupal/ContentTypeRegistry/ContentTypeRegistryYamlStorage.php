@@ -36,6 +36,16 @@ class ContentTypeRegistryYamlStorage implements ContentTypeRegistryStorageInterf
     protected static $globalFields = array();
 
     /**
+     * An array of extra definitions that apply to multiple content types.
+     *
+     * This is for use when the extra is exactly the same on multiple types, to avoid defining it a load of times for
+     * no reason.
+     *
+     * @var Field[]
+     */
+    protected static $globalExtras = array();
+
+    /**
      * The parsed Yaml configuration, stored to avoid having to process it multiple times from loading a file.
      *
      * @var array
@@ -54,6 +64,9 @@ class ContentTypeRegistryYamlStorage implements ContentTypeRegistryStorageInterf
         }
         if (empty(static::$globalFields)) {
             static::$globalFields = $this->loadGlobalFields();
+        }
+        if (empty(static::$globalExtras)) {
+            static::$globalExtras = $this->loadGlobalExtras();
         }
         if (empty(static::$contentTypes)) {
             static::$contentTypes = $this->loadContentTypes();
@@ -122,6 +135,32 @@ class ContentTypeRegistryYamlStorage implements ContentTypeRegistryStorageInterf
 
     /**
      * {@inheritdoc}
+     */
+    public function loadGlobalExtras()
+    {
+        // Make sure to initialise by reading the data source.
+        if (!$this->isInitialised()) {
+            $this->parseDataSource();
+        }
+
+        $globalExtras = array();
+
+        if (empty($this->config)) {
+            throw new ConfigurationException("Configuration file is invalid");
+        }
+
+        if (isset($this->config['GlobalExtras'])) {
+            foreach ($this->config['GlobalExtras'] as $extraData) {
+                $extra = Field::parseYaml($extraData);
+                $globalExtras[$extra->getMachine()] = $extra;
+            }
+        }
+
+        return $globalExtras;
+    }
+
+    /**
+     * {@inheritdoc}
      *
      * @throws ConfigurationException
      */
@@ -133,6 +172,7 @@ class ContentTypeRegistryYamlStorage implements ContentTypeRegistryStorageInterf
         }
 
         $globalFields = $this->loadGlobalFields();
+        $globalExtras = $this->loadGlobalExtras();
         $contentTypes = array();
 
         if (empty($this->config)) {
@@ -141,7 +181,7 @@ class ContentTypeRegistryYamlStorage implements ContentTypeRegistryStorageInterf
 
         if (isset($this->config['ContentTypes'])) {
             foreach ($this->config['ContentTypes'] as $contentTypeData) {
-                $contentType = ContentType::parseYaml($contentTypeData, $globalFields);
+                $contentType = ContentType::parseYaml($contentTypeData, $globalFields, $globalExtras);
                 $contentTypes[$contentType->getMachineName()] = $contentType;
             }
         } else {
@@ -206,5 +246,21 @@ class ContentTypeRegistryYamlStorage implements ContentTypeRegistryStorageInterf
     public function getGlobalFields()
     {
         return static::$globalFields;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getGlobalExtra($extra)
+    {
+        return isset(static::$globalExtras[$extra]) ? static::$globalExtras[$extra] : null;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getGlobalExtras()
+    {
+        return static::$globalExtras;
     }
 }
